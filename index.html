@@ -89,7 +89,7 @@
 </head>
 <body>
 <div class="scanlines"></div>
-<h1>Blobe Games</h1>
+<h1>Blobe Games 2</h1>
 <div class="container">
   <div class="row">
     <div>
@@ -108,6 +108,18 @@
       <button class="rounded-button" style="background-image: url('https://img.itch.zone/aW1nLzEyMzcxMjE1LnBuZw==/original/hFHrmG.png');" 
           onclick="loadGame('BopMooCow23', 'Cat-Mario')"></button>
       <p class="button-text">Cat Mario</p>
+    </div>
+    <div>
+      <button class="rounded-button" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVDJCeFfzhvhhGkf4xJERXF1ePRMOuBKqYPw&s');" 
+          onclick="loadGame('ioB-ybbolB', 'snow-rider-3d')"></button>
+      <p class="button-text">Snow Rider 3D</p>
+    </div>
+  </div>
+  <div class="row">
+      <div>
+      <button class="rounded-button" style="background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTA48E6wo-dFm1b7exk3gIWH7AzLV73Thp_6uz7ADh6x2bCYBE3');" 
+          onclick="loadGame('ioB-ybbolB', 'Idle-Breakout')"></button>
+      <p class="button-text">Idle Breakout</p>
     </div>
   </div>
 </div>
@@ -135,7 +147,9 @@ async function fetchTree(owner, repo, branch) {
 
 async function fetchBlobs(owner, repo, branch, tab) {
   const files = await fetchTree(owner, repo, branch);
+  const total = files.length;
   const map = {};
+  let loaded = 0;
   for (const f of files) {
     try {
       const url = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${f.path}`;
@@ -144,6 +158,10 @@ async function fetchBlobs(owner, repo, branch, tab) {
       const blob = await res.blob();
       map[f.path] = URL.createObjectURL(blob);
     } catch(e) {}
+    loaded++;
+    if (tab && tab.document.getElementById('progress')) {
+      tab.document.getElementById('progress').textContent = `Loaded ${loaded} / ${total} files`;
+    }
   }
   window.blobMap = map;
   return map;
