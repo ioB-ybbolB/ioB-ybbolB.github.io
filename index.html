@@ -331,7 +331,7 @@ async function loadGame(owner, repo) {
     gameTab.document.write(html);
     gameTab.document.close();
 
-    await injectCSSBlobs(gameTab.document, blobMap); // <-- CSS fix
+    await injectCSSBlobs(gameTab.document, blobMap);
 
     gameTab.document.querySelectorAll("script").forEach(oldScript => {
       const newScript = gameTab.document.createElement("script");
