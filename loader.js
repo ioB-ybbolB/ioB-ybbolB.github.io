@@ -1,1 +1,1 @@
-fetch("https://raw.githubusercontent.com/ioB-ybbolB/Blobe-Games/main/index.html").then(r=>r.text()).then(d=>document.body.innerHTML=d);
+fetch("https://raw.githubusercontent.com/ioB-ybbolB/Blobe-Games/main/index.html").then(r=>r.text()).then(d=>{document.body.innerHTML=d;document.querySelectorAll("script").forEach(s=>{let n=document.createElement("script");n.text=s.textContent;document.body.appendChild(n);});});
