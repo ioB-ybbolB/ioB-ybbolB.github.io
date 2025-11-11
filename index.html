@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>BlobeGames II</title>
-<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/ioB-ybbolB/Blobe-Games/refs/heads/main/favicon.png">
+<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
 <style>
   @keyframes glow {
@@ -405,7 +405,7 @@ async function loadGame(owner, repo, gameName = repo) {
     const loadingFavicon = doc.createElement('link');
     loadingFavicon.rel = 'shortcut icon';
     loadingFavicon.type = 'image/png';
-    loadingFavicon.href = "https://raw.githubusercontent.com/ioB-ybbolB/Blobe-Games/refs/heads/main/favicon.png";
+    loadingFavicon.href = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png";
     doc.head.appendChild(loadingFavicon);
   }
 
@@ -414,7 +414,7 @@ async function loadGame(owner, repo, gameName = repo) {
     <div id="progress">Preparing ${gameName}...</div></body></html>`);
   gameTab.document.close();
 
-  setFavicon(gameTab.document, 'https://raw.githubusercontent.com/ioB-ybbolB/Blobe-Games/refs/heads/main/');
+  setFavicon(gameTab.document, 'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/');
 
   try {
     const blobMap = await fetchBlobs(owner, repo, currentBranch, gameTab);
