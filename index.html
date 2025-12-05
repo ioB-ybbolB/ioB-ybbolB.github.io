@@ -209,6 +209,7 @@ const jsGames = [
   { name: "Riddle School", owner: "ioB-ybbolB", repo: "riddle-school", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQdfHD-h_DtJnhfK5Gs-P-NebE0qRmJxwsKm122Zym8-Kenj4UksHg6EsvRFw2qD_jADIQ&usqp=CAU" },
   { name: "Bloons (Original)", owner: "ioB-ybbolB", repo: "bloons", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOQaXrz6Uf5kp521TVtWqv8neffV-yB4W_KI8Oqj4-74r2uQXh4ql5pNmgsldOTbRD-FM&usqp=CAU" },
   { name: "Bloons Tower Defense 5", owner: "ioB-ybbolB", repo: "bloons-td-5", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYCBPnyMad4LA121B0LGnfZNPSKf2Y312_Xeh2jk2jY9mcJDrouX_WWEujonaEQ3LLX9c&usqp=CAU" },
+  { name: "Hollow Knight", owner: "ioB-ybbolB", repo: "hollow-knight", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTxHTDoSPj8KLre9G7GK0hY54oZOZlulsBQlug8iQAajw&s" },
 ];
 const emulatedGames = [
   { name: "Super Mario Bros", owner: "ioB-ybbolB", repo: "Mario", img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlDMsMdFbhoY5HK2cKl-nMd4o_wfyNGnxfQU-LQYsxLPSYCJwjEpgfAuB2uJ53TAevW_njwRX_sCzxtVVs2EsQYd9zcehAONh9OfJSEqHF&s=10" },
@@ -331,28 +332,58 @@ function rewriteOnclickLinks(html) {
 }
 
 function rewriteContent(content, currentPath, blobMap) {
-  const replacer = (match, attr, path) => {
-    if (/^(https?:|data:|blob:)/.test(path)) return match;
-    const base = new URL(currentPath, 'https://x/').pathname.replace(/^\/+/, '');
-    const resolved = new URL(path, 'https://x/' + base).pathname.replace(/^\/+/, '');
-    if (blobMap[resolved]) return match.replace(path, blobMap[resolved]);
-    return match;
-  };
+  function resolvePath(path) {
+    if (/^(https?:|data:|blob:)/.test(path)) return null;
 
-  content = content
-    .replace(/(src|href)\s*=\s*["']([^"']+)["']/g, replacer)
-    .replace(/url\(["']?([^"')]+)["']?\)/g, replacer)
-    .replace(/import\s+["']([^"']+)["']/g, replacer);
+    let raw = path.replace(/^\/+/, "");
 
-  content = content.replace(/<iframe\s+[^>]*src\s*=\s*["']([^"']+)["'][^>]*>/gi, (match, path) => {
-    if (/^(https?:|data:|blob:)/.test(path)) return match;
-    const base = new URL(currentPath, 'https://x/').pathname.replace(/^\/+/, '');
-    const resolved = new URL(path, 'https://x/' + base).pathname.replace(/^\/+/, '');
-    if (blobMap[resolved]) {
-      return match.replace(path, blobMap[resolved]);
+    const base = currentPath.replace(/[^\/]+$/, "");
+    const resolvedURL = new URL(raw, 'https://x/' + base);
+    let resolved = resolvedURL.pathname.replace(/^\/+/, ""); 
+
+    return resolved;
+  }
+
+  content = content.replace(
+    /(src|href)\s*=\s*["']([^"']+)["']/gi,
+    (match, attr, path) => {
+      const resolved = resolvePath(path);
+      if (!resolved) return match;
+      if (blobMap[resolved]) return `${attr}="${blobMap[resolved]}"`;
+      return match;
     }
-    return match;
-  });
+  );
+
+  content = content.replace(
+    /url\(["']?([^"')]+)["']?\)/gi,
+    (match, path) => {
+      const resolved = resolvePath(path);
+      if (!resolved) return match;
+      if (blobMap[resolved]) return `url("${blobMap[resolved]}")`;
+      return match;
+    }
+  );
+
+  content = content.replace(
+    /import\s+["']([^"']+)["']/gi,
+    (match, path) => {
+      const resolved = resolvePath(path);
+      if (!resolved) return match;
+      if (blobMap[resolved]) return `import "${blobMap[resolved]}"`;
+      return match;
+    }
+  );
+
+  content = content.replace(
+    /<iframe([^>]*?)src=["']([^"']+)["']([^>]*)>/gi,
+    (match, before, path, after) => {
+      const resolved = resolvePath(path);
+      if (!resolved) return match;
+      if (blobMap[resolved]) return `<iframe${before}src="${blobMap[resolved]}"${after}>`;
+      return match;
+    }
+  );
+
   return content;
 }
 
