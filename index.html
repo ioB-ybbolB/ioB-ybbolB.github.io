@@ -335,14 +335,24 @@ function rewriteContent(content, currentPath, blobMap) {
   function resolvePath(path) {
     if (/^(https?:|data:|blob:)/.test(path)) return null;
 
+    path = path.split("?")[0].replace(/\\/g, "/");
+
     let raw = path.replace(/^\/+/, "");
 
     const base = currentPath.replace(/[^\/]+$/, "");
     const resolvedURL = new URL(raw, 'https://x/' + base);
-    let resolved = resolvedURL.pathname.replace(/^\/+/, ""); 
-
-    return resolved;
+    return resolvedURL.pathname.replace(/^\/+/, ""); 
   }
+
+  content = content.replace(
+    /<script([^>]*?)src=["']([^"']+)["']([^>]*)>/gi,
+    (match, before, path, after) => {
+      const resolved = resolvePath(path);
+      if (!resolved) return match;
+      if (blobMap[resolved]) return `<script${before}src="${blobMap[resolved]}"${after}>`;
+      return match;
+    }
+  );
 
   content = content.replace(
     /(src|href)\s*=\s*["']([^"']+)["']/gi,
@@ -365,11 +375,11 @@ function rewriteContent(content, currentPath, blobMap) {
   );
 
   content = content.replace(
-    /import\s+["']([^"']+)["']/gi,
+    /@import\s+["']([^"']+)["']/gi,
     (match, path) => {
       const resolved = resolvePath(path);
       if (!resolved) return match;
-      if (blobMap[resolved]) return `import "${blobMap[resolved]}"`;
+      if (blobMap[resolved]) return `@import "${blobMap[resolved]}"`;
       return match;
     }
   );
