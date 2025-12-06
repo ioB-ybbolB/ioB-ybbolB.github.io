@@ -478,7 +478,7 @@ async function loadGame(owner, repo, gameName = repo) {
 
     let html = await (await fetch(blobMap['index.html'])).text();
     html = rewriteOnclickLinks(html);
-    const baseHref = `https://raw.githubusercontent.com/${owner}/${repo}/${currentBranch}/`;
+    const baseHref = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${currentBranch}/`;
     if (!/<base\s/i.test(html)) html = html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}"><title>${gameName}</title>`);
     html = rewriteContent(html, 'index.html', blobMap);
 
