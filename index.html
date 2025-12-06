@@ -332,68 +332,28 @@ function rewriteOnclickLinks(html) {
 }
 
 function rewriteContent(content, currentPath, blobMap) {
-  function resolvePath(path) {
-    if (/^(https?:|data:|blob:)/.test(path)) return null;
+  const replacer = (match, attr, path) => {
+    if (/^(https?:|data:|blob:)/.test(path)) return match;
+    const base = new URL(currentPath, 'https://x/').pathname.replace(/^\/+/, '');
+    const resolved = new URL(path, 'https://x/' + base).pathname.replace(/^\/+/, '');
+    if (blobMap[resolved]) return match.replace(path, blobMap[resolved]);
+    return match;
+  };
 
-    path = path.split("?")[0].replace(/\\/g, "/");
+  content = content
+    .replace(/(src|href)\s*=\s*["']([^"']+)["']/g, replacer)
+    .replace(/url\(["']?([^"')]+)["']?\)/g, replacer)
+    .replace(/import\s+["']([^"']+)["']/g, replacer);
 
-    let raw = path.replace(/^\/+/, "");
-
-    const base = currentPath.replace(/[^\/]+$/, "");
-    const resolvedURL = new URL(raw, 'https://x/' + base);
-    return resolvedURL.pathname.replace(/^\/+/, ""); 
-  }
-
-  content = content.replace(
-    /<script([^>]*?)src=["']([^"']+)["']([^>]*)>/gi,
-    (match, before, path, after) => {
-      const resolved = resolvePath(path);
-      if (!resolved) return match;
-      if (blobMap[resolved]) return `<script${before}src="${blobMap[resolved]}"${after}>`;
-      return match;
+  content = content.replace(/<iframe\s+[^>]*src\s*=\s*["']([^"']+)["'][^>]*>/gi, (match, path) => {
+    if (/^(https?:|data:|blob:)/.test(path)) return match;
+    const base = new URL(currentPath, 'https://x/').pathname.replace(/^\/+/, '');
+    const resolved = new URL(path, 'https://x/' + base).pathname.replace(/^\/+/, '');
+    if (blobMap[resolved]) {
+      return match.replace(path, blobMap[resolved]);
     }
-  );
-
-  content = content.replace(
-    /(src|href)\s*=\s*["']([^"']+)["']/gi,
-    (match, attr, path) => {
-      const resolved = resolvePath(path);
-      if (!resolved) return match;
-      if (blobMap[resolved]) return `${attr}="${blobMap[resolved]}"`;
-      return match;
-    }
-  );
-
-  content = content.replace(
-    /url\(["']?([^"')]+)["']?\)/gi,
-    (match, path) => {
-      const resolved = resolvePath(path);
-      if (!resolved) return match;
-      if (blobMap[resolved]) return `url("${blobMap[resolved]}")`;
-      return match;
-    }
-  );
-
-  content = content.replace(
-    /@import\s+["']([^"']+)["']/gi,
-    (match, path) => {
-      const resolved = resolvePath(path);
-      if (!resolved) return match;
-      if (blobMap[resolved]) return `@import "${blobMap[resolved]}"`;
-      return match;
-    }
-  );
-
-  content = content.replace(
-    /<iframe([^>]*?)src=["']([^"']+)["']([^>]*)>/gi,
-    (match, before, path, after) => {
-      const resolved = resolvePath(path);
-      if (!resolved) return match;
-      if (blobMap[resolved]) return `<iframe${before}src="${blobMap[resolved]}"${after}>`;
-      return match;
-    }
-  );
-
+    return match;
+  });
   return content;
 }
 
@@ -478,7 +438,7 @@ async function loadGame(owner, repo, gameName = repo) {
 
     let html = await (await fetch(blobMap['index.html'])).text();
     html = rewriteOnclickLinks(html);
-    const baseHref = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${currentBranch}/`;
+    const baseHref = `https://raw.githubusercontent.com/${owner}/${repo}/${currentBranch}/`;
     if (!/<base\s/i.test(html)) html = html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}"><title>${gameName}</title>`);
     html = rewriteContent(html, 'index.html', blobMap);
 
