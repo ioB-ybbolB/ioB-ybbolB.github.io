@@ -246,20 +246,56 @@ function showEmulatedGames() {
 function showExploits() {
   renderGames(exploits);
 }
+  
+function resolveGameImage(repo) {
+  const base =
+    "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
 
-function renderGames(games) {
+  const candidates = [
+    `${base}${repo}.png`,
+    `${base}${repo}.webp`,
+    `${base}${repo}.jpg`,
+  ];
+
+  return new Promise(resolve => {
+    const img = new Image();
+
+    let i = 0;
+    const tryNext = () => {
+      if (i >= candidates.length) {
+        resolve(null);
+        return;
+      }
+      img.src = candidates[i++];
+    };
+
+    img.onload = () => resolve(img.src);
+    img.onerror = tryNext;
+
+    tryNext();
+  });
+}
+
+async function renderGames(games) {
   const container = document.getElementById('gameContainer');
   container.innerHTML = '';
-  games.forEach(game => {
+
+  for (const game of games) {
     const wrapper = document.createElement('div');
 
     const btn = document.createElement('button');
     btn.className = 'rounded-button';
 
-    const imgURL = `https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/${game.repo}.png`;
-    btn.style.backgroundImage = `url('${imgURL}')`;
+    resolveGameImage(game.repo).then(url => {
+      if (url) {
+        btn.style.backgroundImage = `url('${url}')`;
+      } else {
+        btn.style.backgroundImage = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png";
+      }
+    });
 
-    btn.onclick = () => loadGame(game.owner, game.repo, game.name, game.base);
+    btn.onclick = () =>
+      loadGame(game.owner, game.repo, game.name, game.base);
 
     const label = document.createElement('div');
     label.className = 'button-text';
@@ -268,7 +304,7 @@ function renderGames(games) {
     wrapper.appendChild(btn);
     wrapper.appendChild(label);
     container.appendChild(wrapper);
-  });
+  }
 }
 
 showJavaScriptGames();
