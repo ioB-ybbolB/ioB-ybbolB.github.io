@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BlobeGames II</title>
+<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  @keyframes glow {
+    0% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
+    50% { text-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff; }
+    100% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
+  }
+
+  body {
+    margin: 0;
+    font-family: "Roboto Mono", monospace;
+    background: radial-gradient(circle at top, #000010, #000);
+    color: #00ffff;
+    text-align: center;
+    overflow-x: hidden;
+  }
+
+  h1 {
+    margin-top: 40px;
+    font-size: 3em;
+    letter-spacing: 4px;
+    animation: glow 3s infinite ease-in-out;
+  }
+
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #111;
+    color: #00ff00;
+    font-family: 'Orbitron', sans-serif;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 255, 0, 0.5);
+    text-transform: uppercase; 
+  }
+
+  .sidebar h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px #00ff00;
+  }
+
+  .sidebar button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background: transparent;
+    border: 2px solid #0ff;
+    color: #0ff;
+    font-size: 1.2em;
+    cursor: pointer;
+    text-align: left;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px #0ff;
+    font-family: 'Orbitron', sans-serif;
+  }
+
+  .sidebar button:hover {
+    background-color: #0ff;
+    color: #111;
+    box-shadow: 0 0 20px #0ff;
+  }
+
+  .sidebar select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background: #222;
+    border: 2px solid #0ff;
+    color: #0ff;
+    font-size: 1.1em;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 5px #0ff;
+  }
+
+  .sidebar select:hover {
+    background-color: #333;
+  }
+
+  .sidebar select:focus {
+    background-color: #111;
+    border-color: #0ff;
+    box-shadow: 0 0 10px #0ff;
+  }
+
+  .sidebar .selected {
+    background: linear-gradient(30deg, rgba(0, 0, 255, 0.2), rgba(0, 255, 255, 0.5));
+    color: #0ff;
+    text-shadow: 0 0 5px #0ff;
+  }
+
+  .game-container {
+    margin-left: 270px;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .rounded-button {
+    border-radius: 30px;
+    border: 2px solid #0ff;
+    box-shadow: 0 0 20px #0ff;
+    width: 200px;
+    height: 200px;
+    margin: 25px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .rounded-button::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(45deg, transparent, rgba(0,255,255,0.1), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s;
+  }
+
+  .rounded-button:hover::before {
+    transform: translateX(100%);
+  }
+
+  .rounded-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 30px #0ff;
+    border-color: #f0f;
+  }
+
+  .button-text {
+    color: #0ff;
+    margin-top: 15px;
+    font-weight: bold;
+    text-shadow: 0 0 10px #0ff;
+    font-size: 1.2em;
+  }
+
+  .scanlines {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0,255,255,0.05),
+      rgba(0,255,255,0.05) 1px,
+      transparent 2px,
+      transparent 3px
+    );
+    mix-blend-mode: overlay;
+    opacity: 0.3;
+  }
+</style>
+</head>
+<body>
+<div class="scanlines"></div>
+
+<div class="sidebar">
+  <h2>Blobe Games v2.05</h2>
+  <button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
+  <button id="emulatedGamesBtn">🎮 Emulator Games</button>
+  <button id="exploitsBtn">💻 Exploits</button>
+  <button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
+</div>
+
+<div class="game-container" id="gameContainer"></div>
+
+<script>
+const jsGames = [
+  { name: "Run 3", owner: "ioB-ybbolB", repo: "Run-3", base: "jsdelivr" },
+  { name: "Cat Mario", owner: "ioB-ybbolB", repo: "Cat-Mario", base: "jsdelivr" },
+  { name: "Snow Rider 3D", owner: "ioB-ybbolB", repo: "snow-rider-3d", base: "jsdelivr" },
+  { name: "Idle Breakout", owner: "ioB-ybbolB", repo: "Idle-Breakout", base: "jsdelivr" },
+  { name: "Slope", owner: "ioB-ybbolB", repo: "Slope", base: "jsdelivr" },
+  { name: "BitLife", owner: "ioB-ybbolB", repo: "BitLife", base: "jsdelivr" },
+  { name: "Paper.io 2", owner: "ioB-ybbolB", repo: "Paper-io-2", base: "jsdelivr" },
+  { name: "Minecraft (Resent)", owner: "ioB-ybbolB", repo: "resent", base: "jsdelivr" },
+  { name: "Gunspin", owner: "ioB-ybbolB", repo: "gunspin", base: "jsdelivr" },
+  { name: "Getaway Shootout", owner: "ioB-ybbolB", repo: "getaway-shootout", base: "jsdelivr" },
+  { name: "Baldi's Basics", owner: "ioB-ybbolB", repo: "baldi", base: "jsdelivr" },
+  { name: "Drive Mad", owner: "ioB-ybbolB", repo: "drive-mad", base: "jsdelivr" },
+  { name: "Cluster Rush", owner: "ioB-ybbolB", repo: "cluster-rush", base: "jsdelivr" },
+  { name: "Core Ball", owner: "ioB-ybbolB", repo: "core-ball", base: "jsdelivr" },
+  { name: "Idle Dice", owner: "ioB-ybbolB", repo: "idle-dice", base: "jsdelivr" },
+  { name: "Tomb of the Mask", owner: "ioB-ybbolB", repo: "totm", base: "jsdelivr" },
+  { name: "Subway Surfers", owner: "ioB-ybbolB", repo: "subway-surfers", base: "jsdelivr" },
+  { name: "Fireboy and Watergirl", owner: "ioB-ybbolB", repo: "fbwg", base: "jsdelivr" },
+  { name: "Worlds Hardest Game", owner: "ioB-ybbolB", repo: "worlds-hardest-game", base: "jsdelivr" },
+  { name: "Worlds Hardest Game 2", owner: "ioB-ybbolB", repo: "worlds-hardest-game-2", base: "jsdelivr" },
+  { name: "The Impossible Quiz", owner: "ioB-ybbolB", repo: "impossible-quiz", base: "jsdelivr" },
+  { name: "Duck Life 4", owner: "ioB-ybbolB", repo: "duck-life-4", base: "jsdelivr" },
+  { name: "Duck Life 5", owner: "ioB-ybbolB", repo: "duck-life-5", base: "jsdelivr" },
+  { name: "Learn to fly", owner: "ioB-ybbolB", repo: "learn-to-fly", base: "jsdelivr" },
+  { name: "Bloxorz", owner: "ioB-ybbolB", repo: "bloxorz", base: "jsdelivr" },
+  { name: "Riddle School", owner: "ioB-ybbolB", repo: "riddle-school", base: "jsdelivr" },
+  { name: "Bloons (Original)", owner: "ioB-ybbolB", repo: "bloons", base: "jsdelivr" },
+  { name: "Bloons Tower Defense 5", owner: "ioB-ybbolB", repo: "bloons-td-5", base: "jsdelivr" },
+  { name: "Hollow Knight", owner: "ioB-ybbolB", repo: "hollow-knight", base: "jsdelivr" },
+  { name: "N-Gon", owner: "ioB-ybbolB", repo: "n-gon", base: "jsdelivr" },
+  { name: "Celeste", owner: "ioB-ybbolB", repo: "celeste", base: "jsdelivr" },
+  { name: "Drift Boss", owner: "ioB-ybbolB", repo: "drift-boss", base: "jsdelivr" },
+  { name: "Geometry Dash", owner: "ioB-ybbolB", repo: "geometrydash-lite", base: "raw" },
+  { name: "Retro Bowl", owner: "ioB-ybbolB", repo: "retro-bowl", base: "jsdelivr" },
+  { name: "Poly Track", owner: "ioB-ybbolB", repo: "poly-track", base: "jsdelivr" },
+  { name: "Monkey Mart", owner: "ioB-ybbolB", repo: "monkey-mart", base: "jsdelivr" },
+  { name: "Angry Birds", owner: "ioB-ybbolB", repo: "angry-birds", base: "jsdelivr" },
+];
+
+const emulatedGames = [
+  { name: "Super Mario Bros", owner: "ioB-ybbolB", repo: "Mario", base: "jsdelivr" },
+  { name: "Super Mario Bros 3", owner: "ioB-ybbolB", repo: "Mario3", base: "jsdelivr" },
+  { name: "Super Mario World", owner: "ioB-ybbolB", repo: "MarioWorld", base: "jsdelivr" },
+  { name: "New Super Mario Bros", owner: "ioB-ybbolB", repo: "new-mario", base: "jsdelivr" },
+  { name: "Pokemon Ruby", owner: "ioB-ybbolB", repo: "pokemon-ruby", base: "jsdelivr" },
+  { name: "Pokemon Sapphire", owner: "ioB-ybbolB", repo: "pokemon-sapphire", base: "jsdelivr" },
+  { name: "Pokemon Emerald", owner: "ioB-ybbolB", repo: "pokemon-emerald", base: "jsdelivr" },
+  { name: "Pokemon Platinum", owner: "ioB-ybbolB", repo: "pokemon-platinum", base: "jsdelivr" },
+];
+
+const exploits = [
+  { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
+];
+
+function showJavaScriptGames() {
+  renderGames(jsGames);
+}
+
+function showEmulatedGames() {
+  renderGames(emulatedGames);
+}
+
+function showExploits() {
+  renderGames(exploits);
+}
+
+function renderGames(games) {
+  const container = document.getElementById('gameContainer');
+  container.innerHTML = '';
+  games.forEach(game => {
+    const wrapper = document.createElement('div');
+
+    const btn = document.createElement('button');
+    btn.className = 'rounded-button';
+
+    const imgURL = `https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/${game.repo}.png`;
+    btn.style.backgroundImage = `url('${imgURL}')`;
+
+    btn.onclick = () => loadGame(game.owner, game.repo, game.name, game.base);
+
+    const label = document.createElement('div');
+    label.className = 'button-text';
+    label.textContent = game.name;
+
+    wrapper.appendChild(btn);
+    wrapper.appendChild(label);
+    container.appendChild(wrapper);
+  });
+}
+
+showJavaScriptGames();
+
+document.getElementById('jsGamesBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('emulatedGamesBtn').classList.remove('selected');
+  document.getElementById('exploitsBtn').classList.remove('selected');
+  showJavaScriptGames();
+};
+
+document.getElementById('emulatedGamesBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('jsGamesBtn').classList.remove('selected');
+  document.getElementById('exploitsBtn').classList.remove('selected');
+  showEmulatedGames();
+};
+
+document.getElementById('exploitsBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('jsGamesBtn').classList.remove('selected');
+  document.getElementById('emulatedGamesBtn').classList.remove('selected');
+  showExploits();
+};
+</script>
+
+<script>
+const BRANCH_CANDIDATES = ["gh-pages", "main", "master"];
+const FIXED_FAVICON = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png";
+
+async function resolveBranch(owner, repo) {
+  for (const branch of BRANCH_CANDIDATES) {
+    const test = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/index.html`;
+    try {
+      const r = await fetch(test, { method: "HEAD" });
+      if (r.ok) return branch;
+    } catch {}
+  }
+  throw new Error("No branch with index.html found");
+}
+
+function rewriteLargeAssets(html, owner, repo, branch) {
+  return html.replace(
+    /(src|href)\s*=\s*["']([^"']+?\.(?:wasm|data|unityweb)(\?[^"']*)?)["']/gi,
+    (match, attr, path) => {
+      if (/^(https?:|\/\/)/i.test(path)) return match;
+      const rawURL = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/` + path.replace(/^\/+/, "");
+      return `${attr}="${rawURL}"`;
+    }
+  );
+}
+
+async function loadGame(owner, repo, gameName = repo, baseProvider = "jsdelivr") {
+  const tab = window.open("about:blank", "_blank");
+  if (!tab) return alert("Popup blocked");
+
+  tab.document.write(`
+    <html>
+      <head>
+        <title>Loading ${gameName}...</title>
+        <style>
+          body {
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+          }
+        </style>
+      </head>
+      <body>Loading ${gameName}...</body>
+    </html>
+  `);
+  tab.document.close();
+
+  const branch = await resolveBranch(owner, repo);
+
+  let indexURL, baseHref;
+  if (baseProvider === "raw") {
+    baseHref = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
+    indexURL = baseHref + "index.html";
+  } else {
+    baseHref = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/`;
+    indexURL = baseHref + "index.html";
+  }
+
+  const res = await fetch(indexURL);
+  if (!res.ok) {
+    tab.document.body.textContent = "Failed to load game";
+    return;
+  }
+
+  let html = await res.text();
+
+  html = rewriteLargeAssets(html, owner, repo, branch);
+
+  if (!/<base\s/i.test(html)) {
+    if (/<head[^>]*>/i.test(html)) {
+      html = html.replace(/<head([^>]*)>/i, `<head$1><base href="${baseHref}">`);
+    } else {
+      html = `<base href="${baseHref}">` + html;
+    }
+  }
+
+  html = html.replace(/<title>.*?<\/title>/i, `<title>${gameName}</title>`);
+
+  tab.document.open();
+  tab.document.write(html);
+  tab.document.close();
+
+  const icon = tab.document.createElement("link");
+  icon.rel = "icon";
+  icon.href = FIXED_FAVICON;
+  tab.document.head.appendChild(icon);
+}
+</script>
+</body>
+</html>
