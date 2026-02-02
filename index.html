@@ -170,7 +170,7 @@
 <div class="scanlines"></div>
 
 <div class="sidebar">
-  <h2>Blobe Games v2.05 THE SITE MAY BE UNSTABLE FOR THE NEXT FEW DAYS DUE TO CODE REWRITE</h2>
+  <h2>Blobe Games v2.06</h2>
   <button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
   <button id="emulatedGamesBtn">🎮 Emulator Games</button>
   <button id="exploitsBtn">💻 Exploits</button>
@@ -363,6 +363,11 @@ async function loadGame(owner, repo, gameName = repo, baseProvider = "jsdelivr")
   const tab = window.open("about:blank", "_blank");
   if (!tab) return alert("Popup blocked");
 
+  const icon = tab.document.createElement("link");
+  icon.rel = "icon";
+  icon.href = FIXED_FAVICON;
+  tab.document.head.appendChild(icon);
+
   tab.document.write(`
     <html>
       <head>
@@ -418,11 +423,6 @@ async function loadGame(owner, repo, gameName = repo, baseProvider = "jsdelivr")
   tab.document.open();
   tab.document.write(html);
   tab.document.close();
-
-  const icon = tab.document.createElement("link");
-  icon.rel = "icon";
-  icon.href = FIXED_FAVICON;
-  tab.document.head.appendChild(icon);
 }
 </script>
 </body>
