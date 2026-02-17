@@ -14,11 +14,13 @@
     doc.open();
     doc.write(html);
     doc.close();
-        try {
-        window.parent.document.title = "test";
-    } catch (e) {
-        console.warn("Could not change parent title:", e);
-    }
+    window.parent.document.title = "BlobeGames II";
+    window.parent.document.querySelectorAll("link[rel~='icon']").forEach(el => el.remove());
+    const link = window.parent.document.createElement("link");
+    link.rel = "icon";
+    link.type = "image/png";
+    link.href = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png";
+    window.parent.document.head.appendChild(link);
 })();
 ]]></script>
 </svg>
