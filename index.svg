@@ -1,18 +1,25 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" style="position: fixed; top: 0; left: 0;">
+<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+  <foreignObject x="0" y="0" width="100%" height="100%">
+    <div xmlns="http://www.w3.org/1999/xhtml" id="fo-container" style="width:100%;height:100%;">
+    </div>
+  </foreignObject>
+
   <script><![CDATA[
 (async () => {
+    const container = document.getElementById('fo-container');
+
     const iframe = document.createElement('iframe');
     Object.assign(iframe.style, {
-        position: 'absolute',
-        top: '0',
-        left: '0',
         width: '100%',
         height: '100%',
         border: 'none',
     });
-    document.body.appendChild(iframe);
+
+    container.appendChild(iframe);
+
     const html = await fetch('https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/index.html')
         .then(r => r.text());
+
     iframe.contentDocument.open();
     iframe.contentDocument.write(html);
     iframe.contentDocument.close();
