@@ -27,8 +27,30 @@ font-family:'Orbitron',sans-serif;
 padding:20px;
 box-shadow:2px 0 10px rgba(0,255,0,0.5);
 text-transform:uppercase;
+z-index: 100;
 }
 .sidebar h2{font-size:1.8em;margin-bottom:20px;text-shadow:0 0 10px #00ff00;}
+
+/* Search Bar Styles */
+.search-container {
+    margin-bottom: 20px;
+}
+#gameSearch {
+    width: 100%;
+    padding: 10px;
+    background: #000;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 0 5px #00ff00;
+    box-sizing: border-box;
+}
+#gameSearch:focus {
+    box-shadow: 0 0 15px #00ff00;
+}
+
 .sidebar button{
 display:block;width:100%;padding:10px;margin:5px 0;
 background:transparent;border:2px solid #0ff;color:#0ff;
@@ -88,6 +110,11 @@ opacity:0.3;
 
 <div class="sidebar">
 <h2>Blobe Games v2.08</h2>
+
+<div class="search-container">
+    <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
+</div>
+
 <button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
 <button id="emulatedGamesBtn">🎮 Emulator Games</button>
 <button id="exploitsBtn">💻 Exploits</button>
@@ -97,6 +124,7 @@ opacity:0.3;
 <div class="game-container" id="gameContainer"></div>
 
 <script>
+// Game Data
 const jsGames = [
   { name: "Run 3", owner: "ioB-ybbolB", repo: "Run-3", base: "jsdelivr" },
   { name: "Cat Mario", owner: "ioB-ybbolB", repo: "Cat-Mario", base: "jsdelivr" },
@@ -155,15 +183,30 @@ const exploits = [
   { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
 ];
 
+let currentGames = jsGames; // Keep track of active category
+
+// Filtering Logic
+function filterGames() {
+    const query = document.getElementById('gameSearch').value.toLowerCase();
+    const filtered = currentGames.filter(game => game.name.toLowerCase().includes(query));
+    renderGames(filtered);
+}
+
 function showJavaScriptGames() {
+  currentGames = jsGames;
+  document.getElementById('gameSearch').value = '';
   renderGames(jsGames);
 }
 
 function showEmulatedGames() {
+  currentGames = emulatedGames;
+  document.getElementById('gameSearch').value = '';
   renderGames(emulatedGames);
 }
 
 function showExploits() {
+  currentGames = exploits;
+  document.getElementById('gameSearch').value = '';
   renderGames(exploits);
 }
 
@@ -193,7 +236,7 @@ async function renderGames(games) {
       if (url) {
         btn.style.backgroundImage = `url('${url}')`;
       } else {
-        btn.style.backgroundImage = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png";
+        btn.style.backgroundImage = "url('https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png')";
       }
     });
 
@@ -232,9 +275,7 @@ document.getElementById('exploitsBtn').onclick = function() {
 };
 
 showJavaScriptGames();
-</script>
 
-<script>
 const BRANCHES=["gh-pages","main","master"];
 
 async function resolveBranch(owner,repo){
@@ -267,20 +308,25 @@ html=html.replace(/location\.href\s*=\s*["']([^"']+)["']/gi,
 return html;
 }
 
-function injectCore(html,base,gameName){
-html=rewriteNavigation(html);
-const core=`
-<base href="${base}">
+function injectCore(html, base, gameName) {
+    html = rewriteNavigation(html);
+    
+    const hasBase = /<base\s+href=/i.test(html);
+    
+    const core = `
+${hasBase ? '' : `<base href="${base}">`}
 <title>${gameName}</title>
 <script>
 function __navigate(p){
-if(!p.startsWith("http"))p=new URL(p,document.baseURI).href;
-window.opener.__dynamicFetch(window,p, "${gameName}");
+    if(!p.startsWith("http")) p = new URL(p, document.baseURI).href;
+    window.opener.__dynamicFetch(window, p, "${gameName}");
 }
 <\/script>`;
-if(/<head/i.test(html))
-return html.replace(/<head[^>]*>/i,m=>m+core);
-return core+html;
+
+    if (/<head/i.test(html)) {
+        return html.replace(/<head[^>]*>/i, m => m + core);
+    }
+    return core + html;
 }
 
 async function __dynamicFetch(tab, url, gameName) {
@@ -344,6 +390,5 @@ tab.document.write(html);
 tab.document.close();
 }
 </script>
-
 </body>
 </html>
