@@ -124,7 +124,6 @@ opacity:0.3;
 <div class="game-container" id="gameContainer"></div>
 
 <script>
-// Game Data
 const jsGames = [
   { name: "Run 3", owner: "ioB-ybbolB", repo: "Run-3", base: "jsdelivr" },
   { name: "Cat Mario", owner: "ioB-ybbolB", repo: "Cat-Mario", base: "jsdelivr" },
@@ -179,6 +178,7 @@ const jsGames = [
   { name: "Jetpack Joyride", owner: "ioB-ybbolB", repo: "jetpack-joyride", base: "jsdelivr" },
   { name: "Time Shooter 2", owner: "ioB-ybbolB", repo: "Time-Shooter-2", base: "jsdelivr" },
   { name: "Time Shooter 3", owner: "ioB-ybbolB", repo: "Time-Shooter-3", base: "jsdelivr" },
+   { name: "Granny", owner: "ioB-ybbolB", repo: "granny", base: "jsdelivr" },
   { name: "Color Switch 2", owner: "ioB-ybbolB", repo: "color-switch-2-challenges", base: "jsdelivr" },
 ];
 
@@ -197,9 +197,8 @@ const exploits = [
   { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
 ];
 
-let currentGames = jsGames; // Keep track of active category
+let currentGames = jsGames;
 
-// Filtering Logic
 function filterGames() {
     const query = document.getElementById('gameSearch').value.toLowerCase();
     const filtered = currentGames.filter(game => game.name.toLowerCase().includes(query));
