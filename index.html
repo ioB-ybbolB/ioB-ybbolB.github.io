@@ -1,1 +1,427 @@
-<!DOCTYPE html> <html> <head> <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> <title>Blocked</title> <meta name="viewport" content="width=device-width, initial-scale=1"> <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet"> <style> html { box-sizing: border-box; display: flex; min-height: 100%; min-height: 100vh; width: 100%; } *, *::before, *::after { box-sizing: inherit; } body { background: linear-gradient(to bottom, #444652, #28282E); display: flex; font: 14px/1.3 "Roboto", Arial, sans-serif; min-height: 100%; min-height: 100vh; margin: 0; width: 100%; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; } .blockScreen { align-items: center; color: #666e80; display: flex; flex-direction: column; justify-content: center; min-height: 100%; min-height: 100vh; position: relative; text-align: center; width: 100%; z-index: 0; } .blockScreen a { color: #666e80; } .blockScreen svg { margin: 16px 0 8px; } .blockScreen .svgAccessBlocked-paths { stroke: #00AFD7; stroke: #016FB9; } .blockScreen .blockScreen-customSchoolName { color: white; font: 400 18px/1 "Roboto", Arial, sans-serif; margin: 0 16px; } .blockScreen .lockoutScreen-stripe { display: none; } .blockScreen .lockoutScreen-svg { display: none; } .blockScreen .blockScreen-stripe { background: #00AFD7; background: #016FB9; color: rgba(255, 255, 255, 0.8); flex: 0 1 auto; margin: 32px 0; padding: 24px 16px; width: 100%; } .blockScreen .blockScreenStripe-website { font: 30px "Roboto", Arial, sans-serif; color: white; } .blockScreen .blockScreen-systemMessage, .blockScreen .blockScreen-customBodyText { margin: 0 16px 8px; max-width: 640px; } .blockScreen .blockScreen-override { background: transparent; border: 1px solid rgba(255, 255, 255, 0.2); border-radius: 4px; color: white; display: inline-block; line-height: 34px; margin: 16px; min-width: 80px; padding: 0 16px; text-align: center; text-decoration: none; transition: all 0.2s; } .blockScreen .blockScreen-override:hover { background: rgba(255, 255, 255, 0.04); } .blockScreen .blockScreen-customFooterText { bottom: 16px; font-size: 12px; left: 0; padding: 0 16px; position: absolute; width: 100%; } .hidden { display: none !important; } .code { display: none; } .lockoutScreen .blockScreen-svg { display: none; } .lockoutScreen .lockoutScreen-svg { display: block; } .lockoutScreen .blockScreen-stripe { display: none; } .lockoutScreen .lockoutScreen-stripe { background: #00AFD7; background: #016FB9; color: rgba(255, 255, 255, 0.8); display: block; flex: 0 1 auto; font-size: 32px; margin: 32px 0; padding: 24px 16px; width: 100%; } .lockoutScreen .lockoutScreen-stripe .lockoutScreen-stripeContent { margin: 0 auto; max-width: 700px; } .lockoutScreen .blockScreen-controls { margin: 16px 0; } .lockoutScreen .code { background: transparent; border: 1px solid #666e80; border-bottom-left-radius: 4px; border-right: 0; border-top-left-radius: 4px; color: #666e80; display: inline-block; font: 14px/1.3 "Roboto", Arial, sans-serif; line-height: 34px; margin-right: -4px; padding: 0 16px; vertical-align: top; } .lockoutScreen .blockScreen-override { background: #666e80; border-color: #666e80; border-top-left-radius: 0; border-bottom-left-radius: 0; display: inline-block; margin: 0; } .lockoutScreen .blockScreen-override:hover { background: rgba(255, 255, 255, 0.2a); } .submitReviewTop { background: transparent; border: 1px solid #666e80; border-top-left-radius: 4px; border-top-right-radius: 4px; color: white; display: inline-block; font: 14px/1.3 "Roboto", Arial, sans-serif; line-height: 34px; margin-right: -4px; padding: 0 16px; border-bottom: 0; vertical-align: top; width: 300px; } .submitReviewMiddle { background: transparent; border: 1px solid #666e80; color: white; display: inline-block; font: 14px/1.3 "Roboto", Arial, sans-serif; line-height: 34px; margin-right: -4px; padding: 0 16px; border-bottom: 0; vertical-align: top; width: 300px; } .submitReviewBottom { background: transparent; border: 1px solid #666e80; border-bottom-left-radius: 4px; border-bottom-right-radius: 4px; color: white; display: inline-block; font: 14px/1.3 "Roboto", Arial, sans-serif; line-height: 34px; margin-right: -4px; padding: 0 11px; vertical-align: top; width: 300px; } .termsOfService, .rocketAuth { background-color: transparent; color: white; max-width: 700px; } .rocketAuth > .button { background-color: #00AFD7; background-color: #016FB9; border-color: #00AFD7; border-color: #016FB9; border-radius: 0; color: white; font-size: 14px; height: 36px; line-height: 36px; padding: 0 16px; vertical-align: top; } input.rocketAuth, select.rocketAuth, .button.rocketAuth{ border-color: #00AFD7; border-color: #016FB9; border-radius: 0; border-style: solid; border-width: 2px; font-family: Arial, sans-serif; font-size: 14px; height: 36px; min-width: 160px; padding: 0 10px; -webkit-appearance: none; } form.rocketAuth { margin-bottom: 8px; } .rocketAuth { margin-left: 0 !important; margin-right: -2px !important; } .formElement-optionList { list-style: none; } .m-bottom--8 { margin-bottom: 8px!important; } .m-horizontal--8 { margin-left: 8px!important; margin-right: 8px!important; } .m-bottom--0 { margin-bottom: 0 !important; } .m-top--8 { margin-top: 8px !important } .width-min--220px { min-width: 220px; } .position--relative { position: relative; } .bottom--4 { bottom: 4px; } .form--inline > .button, { display: inline-block; } .form--inline > .formElement-input { display: inline-block; margin: 0 4px 0 0; } .form--inline > .formElement-optionList { display: inline-block; margin: 6px 0; } .form--inline > .formElement-optionList > li { display: inline-block; margin: 0 4px 0 0; } /* website not found screen */ .blockScreen .notFoundScreen { display: none; width: 100%; margin: 16px 0; background: #f89e3d; } .notFoundScreen-stripe { display: flex; justify-content: center; max-width: 656px; padding: 64px 0 60px; margin: auto; color: white; } .blockScreen .notFoundScreen-svg { display: block; margin-right: 16px; } .notFoundScreen-svg-a, .notFoundScreen-svg-b, .notFoundScreen-svg-e { fill: none; } .notFoundScreen-svg-a, .notFoundScreen-svg-b { stroke: #fff; stroke-width: 2px; } .notFoundScreen-svg-b { stroke-linecap: round; } .notFoundScreen-svg-c { fill: #fff; } .notFoundScreen-svg-d { stroke: none; } .notFoundScreen-errorText { margin: 8px 16px 0 0; font-size: 1.875rem; text-align: center; } .notFoundScreen-info { text-align: left; } .notFoundScreen-header { margin: 4px 0 16px; font-size: 1.875rem; line-height: 1.3; font-weight: 400; } .notFoundScreen-list { padding: 0; margin: 2px 0 0; list-style: none; } .notFoundScreen-listItem { display: flex; align-items: center; line-height: 1.75; } .notFoundScreen-listItem::before { content: ""; display: inline-block; width: 7px; height: 7px; margin-right: 10px; border-radius: 50%; background: white; } </style> <script src="/in_page.js"></script> </head> <body> <div class="blockScreen"> <svg class="lockoutScreen-svg" width="128" height="113" xmlns="http://www.w3.org/2000/svg"> <g class="svgAccessBlocked-paths" stroke="#00AFD7" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"> <path d="M61.919 3.41c1.15-1.883 3.018-1.875 4.162 0l59.475 97.475c1.15 1.884.282 3.411-1.92 3.411H4.364c-2.21 0-3.065-1.535-1.92-3.41L61.918 3.41z"/> <path d="M59.259 26.074h9.481v49.778h-9.481z"/> <circle cx="64" cy="90.074" r="4.741"/> <path d="M33.185 111.407h61.63"/> </g> </svg> <svg class="blockScreen-svg" height="66" viewbox="0 0 66 66" width="66" xmlns="http://www.w3.org/2000/svg"> <title>access blocked</title> <g class="svgAccessBlocked-paths" fill="none" fill-rule="evenodd" stroke="#00AFD7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"> <path d="M33 1C15.327 1 1 15.327 1 33c0 17.673 14.327 32 32 32 17.673 0 32-14.327 32-32"></path> <path d="M21.288 21.387v-4.344c0-3.624 2.936-6.562 6.564-6.562h17v10.93c1.35.26 2.37 1.446 2.37 2.883v.822c0 1.44-1.037 2.638-2.4 2.887-.437 6.106-5.53 10.924-11.752 10.924-6.213 0-11.302-4.816-11.75-10.9-1.435-.19-2.542-1.414-2.542-2.91v-.823c0-1.48 1.093-2.702 2.51-2.906zM27.435 38.926l-2.772 5.656h-6.598c-3.385 0-6.398 2.85-6.398 6.196v6.06m42.666-.134v-6.06c0-3.34-2.74-6.062-6.118-6.062h-7.413l-2.77-5.656M53.148 10.48H65v8.297H53.148zM55.52 3.37h7.11v7.11h-7.11z"></path> </g> </svg> <div class="blockScreen-customSchoolName" id="blockScreen-customSchoolName">Blocked</div> <div class="blockScreen-stripe"> <div class="blockScreenStripe-top"> <span data-translation="oops">Oops</span>, </div> <div class="blockScreenStripe-website"><span id="host"></span>site.nhd.org</div> <div class="blockScreenStripe-bottom"> <span data-translation="is_not_available_because">is not available because it is on a custom block list.</span> <span id="reason"></span></div> </div> <div class="lockoutScreen-stripe"> <div class="lockoutScreen-stripeContent"> <span data-translation="your_access_to_the_internet">Your access to the internet has been suspended for </span> <span id="minutes"></span> <span data-translation="minutes_for_repeatedly_attempting">minutes for repeatedly attempting to visit blocked websites</span>. </div> </div> <section class="notFoundScreen" id="notFoundScreen"> <div class="notFoundScreen-stripe"> <div> <svg class="notFoundScreen-svg" xmlns="http://www.w3.org/2000/svg" width="104" height="64" viewBox="0 0 104 64"> <g transform="translate(-368 -359)"> <g class="notFoundScreen-svg-a" transform="translate(368 359)"> <rect class="notFoundScreen-svg-d" width="104" height="64" rx="3" /> <rect class="notFoundScreen-svg-e" x="1" y="1" width="102" height="62" rx="2" /> </g> <line class="notFoundScreen-svg-a" x2="101" transform="translate(369.5 372.5)" /> <g transform="translate(116.5 -3)"> <g transform="translate(17 7)"> <line class="notFoundScreen-svg-b" x2="4" y2="4" transform="translate(270 384.5)" /> <line class="notFoundScreen-svg-b" x1="4" y2="4" transform="translate(270 384.5)" /> </g> <g transform="translate(46 7)"> <line class="notFoundScreen-svg-b" x2="4" y2="4" transform="translate(270 384.5)" /> <line class="notFoundScreen-svg-b" x1="4" y2="4" transform="translate(270 384.5)" /> </g> <path class="notFoundScreen-svg-b" d="M.5,0a49.035,49.035,0,0,1,16-3,59.424,59.424,0,0,1,17,3" transform="translate(286.5 410.5)" /> </g> <circle class="notFoundScreen-svg-c" cx="2" cy="2" r="2" transform="translate(376 364)" /> <circle class="notFoundScreen-svg-c" cx="2" cy="2" r="2" transform="translate(381 364)" /> <circle class="notFoundScreen-svg-c" cx="2" cy="2" r="2" transform="translate(386 364)" /> </g> </svg> <div class="notFoundScreen-errorText">Error</div> </div> <div class="notFoundScreen-info"> <h1 class="notFoundScreen-header">{{.Host}} cannot be reached</h1> <strong>Reasons for this error message include:</strong> <ul class="notFoundScreen-list"> <li class="notFoundScreen-listItem">the website you’re trying to reach doesn’t exist or is broken.</li> <li class="notFoundScreen-listItem">the web address was mistyped.</li> <li class="notFoundScreen-listItem">you clicked on a link with an error.</li> <li class="notFoundScreen-listItem">there is a problem with your Internet connection.</li> </ul> </div> </div> </section> <div class="blockScreen-systemMessage"> <span data-translation="logged_in_as">You are logged in as</span> <span id="username"></span> (<span data-translation="ip_address">IP Address</span>: <span id="ip"></span>). </div> <div class="blockScreen-customBodyText" id="blockScreen-customBodyText"></div> <div class="blockScreen-controls"> <input class="code" id="code" placeholder="Code" data-translation="code" /> <a href="#" class="blockScreen-override hidden" id="override"> <span data-translation="override">Override</span> </a> </div> <div class="blockScreen-controls"> <a href="#" class="blockScreen-override hidden" id="reviewButton"> <span data-translation="submit_review">Submit Review</span> </a> </div> <div class="blockScreen-controls hidden"> <input class="submitReviewTop" id="reviewName" maxlength="30" placeholder="Name" data-translation="name" /></br> <input class="submitReviewMiddle" id="reviewEmail" maxlength="254" placeholder="Email" data-translation="email" /></br> <textarea class="submitReviewBottom" id="reviewReason" maxlength="120" placeholder="Reason" data-translation="reason" rows="2"></textarea></br> <a href="#" class="blockScreen-override" id="submitReview"> <span data-translation="submit_review">Submit Review</span> </a> </div> <div class="blockScreen-customFooterText" id="blockScreen-customFooterText"></div> </div> <textarea id='translations' class='hidden'>{"en":{"access_disabled":"Internet Access has been disabled on this device","code":"Code","custom_block_list":"it is on a custom block list","email":"Email","file_ext_blocked":"the file extension is blocked","ip_address":"IP Address","is_not_available_because":"is not available because","categorized_as":"it is categorized as","logged_in_as":"You are logged in as","minutes_for_repeatedly_attempting":"minutes for repeatedly attempting to visit blocked websites","name":"Name","oops":"Oops","org_youtube_rules":"of your organization's YouTube rules","override":"Override","reason":"Reason","search_term_used":"of the search term used","submit_review":"Submit Review","your_access_to_the_internet":"Your access to the internet has been suspended for","webzone_rule":"of a WebZone rule"}}</textarea> <textarea id='categories' class='hidden'>{"67":"access-denied","3":"ads","103":"adult.lifestyles","142":"ai.detective","141":"ai.generative","42":"alcohol","140":"artificial_intelligence","5":"audio-video","37":"automobile","1014":"BSD Core Services","1010":"BSD Enrollment","1012":"BSD SSO","6":"business","115":"business.construction","10":"business.finance","18":"business.jobs","119":"business.manufacturing","73":"business.real_estate","1007":"CIPA Compliance","57":"computers","138":"computers.analytics","128":"computers.consumer_electronics","127":"computers.filehosting","136":"computers.storage","1001":"CSecurity - Blocked IM","1003":"CSecurity - Custom Access List","1002":"CSecurity - Game Streaming","1005":"CSecurity - Unapproved Apps","1006":"Digital Citizenship","34":"directory","8":"drugs","9":"education","47":"education.arts","74":"education.games","99":"education.history","41":"education.lifestyles","48":"education.literature","129":"education.media","50":"education.music","44":"education.science","80":"education.sex","75":"education.social_science","45":"entertainment","131":"entertainment.radio_and_tv","7":"errors","105":"expired","200":"Facebook","95":"family","76":"family.food","43":"family.health","58":"family.religion","11":"forums","71":"forums.blogs","118":"forums.dating","19":"forums.email","61":"forums.im","38":"forums.newsgroups","60":"forums.p2p","39":"forums.personals","117":"forums.social_networking","12":"gambling","13":"games","14":"general","15":"government","56":"ham","83":"hobby","40":"humor","202":"Instagram","1009":"IT Tools","46":"kids_and_teens","69":"kids_and_teens.chat","68":"law","1":"local-allow","2":"local-block","4":"mature","100":"mature.art","101":"mature.bodyart","102":"mature.games","70":"mature.language","51":"microsoft","49":"music","20":"news","126":"offensive","113":"parked","132":"photography","203":"Pinterest","112":"plagiarism","21":"porn","94":"porn.illicit","85":"search","72":"security","1004":"Security - CTE Computer Science","134":"security.malware","116":"security.nettools","28":"security.proxy","133":"security.shorteners","135":"security.translators","33":"security.warez","29":"shopping","81":"shopping.auctions","104":"shopping.office_supplies","78":"shopping.spam","79":"society","97":"society.crime","96":"society.politics","55":"spam","30":"sports","139":"sports.esports","82":"sports.fantasy","98":"sports.martial_arts","84":"sports.youth","31":"suspicious","36":"travel","201":"Twitter","0":"unknown","1015":"Unknown .Zip and .Mov TLDs","32":"violence","137":"violence.extremism","66":"weapons","59":"world","107":"world.cn","86":"world.de","87":"world.es","88":"world.fr","89":"world.it","90":"world.jp","108":"world.kr","91":"world.nl","106":"world.pl","92":"world.pt","93":"world.ru","900":"youtube"}</textarea> </body> </html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>BlobeGames II</title>
+<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
+<style>
+@keyframes glow {
+0%{text-shadow:0 0 5px #0ff,0 0 10px #0ff,0 0 20px #0ff;}
+50%{text-shadow:0 0 20px #0ff,0 0 40px #0ff,0 0 60px #0ff;}
+100%{text-shadow:0 0 5px #0ff,0 0 10px #0ff,0 0 20px #0ff;}
+}
+body{
+margin:0;
+font-family:"Roboto Mono",monospace;
+background:radial-gradient(circle at top,#000010,#000);
+color:#00ffff;
+text-align:center;
+overflow-x:hidden;
+}
+h1{margin-top:40px;font-size:3em;letter-spacing:4px;animation:glow 3s infinite ease-in-out;}
+.sidebar{
+position:fixed;left:0;top:0;width:250px;height:100%;
+background-color:#111;color:#00ff00;
+font-family:'Orbitron',sans-serif;
+padding:20px;
+box-shadow:2px 0 10px rgba(0,255,0,0.5);
+text-transform:uppercase;
+z-index: 100;
+}
+.sidebar h2{font-size:1.8em;margin-bottom:20px;text-shadow:0 0 10px #00ff00;}
+
+/* Search Bar Styles */
+.search-container {
+    margin-bottom: 20px;
+}
+#gameSearch {
+    width: 100%;
+    padding: 10px;
+    background: #000;
+    border: 2px solid #00ff00;
+    color: #00ff00;
+    font-family: 'Orbitron', sans-serif;
+    border-radius: 5px;
+    outline: none;
+    box-shadow: 0 0 5px #00ff00;
+    box-sizing: border-box;
+}
+#gameSearch:focus {
+    box-shadow: 0 0 15px #00ff00;
+}
+
+.sidebar button{
+display:block;width:100%;padding:10px;margin:5px 0;
+background:transparent;border:2px solid #0ff;color:#0ff;
+font-size:1.2em;cursor:pointer;text-align:left;
+border-radius:5px;transition:all 0.3s ease;
+box-shadow:0 0 5px #0ff;font-family:'Orbitron',sans-serif;
+}
+.sidebar button:hover{
+background-color:#0ff;color:#111;box-shadow:0 0 20px #0ff;
+}
+.sidebar .selected{
+background:linear-gradient(30deg,rgba(0,0,255,0.2),rgba(0,255,255,0.5));
+color:#0ff;text-shadow:0 0 5px #0ff;
+}
+.game-container{
+margin-left:270px;padding:20px;
+display:flex;flex-wrap:wrap;justify-content:center;
+}
+.rounded-button{
+border-radius:30px;border:2px solid #0ff;
+box-shadow:0 0 20px #0ff;width:200px;height:200px;
+margin:25px;background-size:cover;background-position:center;
+cursor:pointer;transition:all 0.3s ease;
+position:relative;overflow:hidden;
+}
+.rounded-button::before{
+content:"";position:absolute;inset:0;
+background:linear-gradient(45deg,transparent,rgba(0,255,255,0.1),transparent);
+transform:translateX(-100%);
+transition:transform 0.5s;
+}
+.rounded-button:hover::before{transform:translateX(100%);}
+.rounded-button:hover{
+transform:scale(1.1);box-shadow:0 0 30px #0ff;border-color:#f0f;
+}
+.button-text{
+color:#0ff;margin-top:15px;font-weight:bold;
+text-shadow:0 0 10px #0ff;font-size:1.2em;
+}
+.scanlines{
+pointer-events:none;position:fixed;inset:0;
+background:repeating-linear-gradient(
+0deg,
+rgba(0,255,255,0.05),
+rgba(0,255,255,0.05) 1px,
+transparent 2px,
+transparent 3px
+);
+mix-blend-mode:overlay;
+opacity:0.3;
+}
+</style>
+</head>
+
+<body>
+<div class="scanlines"></div>
+
+<div class="sidebar">
+<h2>Blobe Games v2.12</h2>
+
+<div class="search-container">
+    <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
+</div>
+
+<button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
+<button id="emulatedGamesBtn">🎮 Emulator Games</button>
+<button id="exploitsBtn">💻 Exploits</button>
+<button onclick="var w=window.open('about:blank');w.document.head.innerHTML='<title>Suggestion Form</title><link rel=\'icon\' href=\'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png\'>';w.document.body.innerHTML='<iframe src=&quot;https://forms.gle/FcPi2sCWTYPs49R57&quot; style=&quot;position:fixed;top:0;left:0;width:100%;height:100%;border:0;&quot;></iframe>';">💡 Suggestions</button>
+<button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
+</div>
+
+<div class="game-container" id="gameContainer"></div>
+
+<script>
+const jsGames = [
+  { name: "Run 3", owner: "ioB-ybbolB", repo: "Run-3", base: "jsdelivr" },
+  { name: "Cat Mario", owner: "ioB-ybbolB", repo: "Cat-Mario", base: "jsdelivr" },
+  { name: "Snow Rider 3D", owner: "ioB-ybbolB", repo: "snow-rider-3d", base: "jsdelivr" },
+  { name: "Idle Breakout", owner: "ioB-ybbolB", repo: "Idle-Breakout", base: "jsdelivr" },
+  { name: "Slope", owner: "ioB-ybbolB", repo: "Slope", base: "jsdelivr" },
+  { name: "Slope 2", owner: "ioB-ybbolB", repo: "Slope-2", base: "jsdelivr" },
+  { name: "BitLife", owner: "ioB-ybbolB", repo: "BitLife", base: "jsdelivr" },
+  { name: "Paper.io 2", owner: "ioB-ybbolB", repo: "Paper-io-2", base: "jsdelivr" },
+  { name: "Minecraft (Resent)", owner: "ioB-ybbolB", repo: "resent", base: "jsdelivr" },
+  { name: "Gunspin", owner: "ioB-ybbolB", repo: "gunspin", base: "jsdelivr" },
+  { name: "Getaway Shootout", owner: "ioB-ybbolB", repo: "getaway-shootout", base: "jsdelivr" },
+  { name: "Rooftop Snipers", owner: "ioB-ybbolB", repo: "rooftop-snipers", base: "jsdelivr" },
+  { name: "Baldi's Basics", owner: "ioB-ybbolB", repo: "baldi", base: "jsdelivr" },
+  { name: "Drive Mad", owner: "ioB-ybbolB", repo: "drive-mad", base: "jsdelivr" },
+  { name: "Cluster Rush", owner: "ioB-ybbolB", repo: "cluster-rush", base: "jsdelivr" },
+  { name: "Core Ball", owner: "ioB-ybbolB", repo: "core-ball", base: "jsdelivr" },
+  { name: "Idle Dice", owner: "ioB-ybbolB", repo: "idle-dice", base: "jsdelivr" },
+  { name: "Tomb of the Mask", owner: "ioB-ybbolB", repo: "totm", base: "jsdelivr" },
+  { name: "Subway Surfers", owner: "ioB-ybbolB", repo: "subway-surfers", base: "jsdelivr" },
+  { name: "Fireboy and Watergirl", owner: "ioB-ybbolB", repo: "fbwg", base: "jsdelivr" },
+  { name: "Worlds Hardest Game", owner: "ioB-ybbolB", repo: "worlds-hardest-game", base: "jsdelivr" },
+  { name: "Worlds Hardest Game 2", owner: "ioB-ybbolB", repo: "worlds-hardest-game-2", base: "jsdelivr" },
+  { name: "The Impossible Quiz", owner: "ioB-ybbolB", repo: "impossible-quiz", base: "jsdelivr" },
+  { name: "Duck Life", owner: "ioB-ybbolB", repo: "duck-life", base: "jsdelivr" },
+  { name: "Duck Life 2", owner: "ioB-ybbolB", repo: "duck-life-2", base: "jsdelivr" },
+  { name: "Duck Life 3", owner: "ioB-ybbolB", repo: "duck-life-3", base: "jsdelivr" },
+  { name: "Duck Life 4", owner: "ioB-ybbolB", repo: "duck-life-4", base: "jsdelivr" },
+  { name: "Duck Life 5", owner: "ioB-ybbolB", repo: "duck-life-5", base: "jsdelivr" },
+  { name: "Duck Life 6", owner: "ioB-ybbolB", repo: "duck-life-6", base: "jsdelivr" },
+  { name: "Learn to Fly", owner: "ioB-ybbolB", repo: "learn-to-fly", base: "jsdelivr" },
+  { name: "Learn to Fly 2", owner: "ioB-ybbolB", repo: "learn-to-fly-2", base: "jsdelivr" },
+  { name: "Bloxorz", owner: "ioB-ybbolB", repo: "bloxorz", base: "jsdelivr" },
+  { name: "Riddle School", owner: "ioB-ybbolB", repo: "riddle-school", base: "jsdelivr" },
+  { name: "Bloons (Original)", owner: "ioB-ybbolB", repo: "bloons", base: "jsdelivr" },
+  { name: "Bloons Tower Defense 5", owner: "ioB-ybbolB", repo: "bloons-td-5", base: "jsdelivr" },
+  { name: "Hollow Knight", owner: "ioB-ybbolB", repo: "hollow-knight", base: "jsdelivr" },
+  { name: "N-Gon", owner: "ioB-ybbolB", repo: "n-gon", base: "jsdelivr" },
+  { name: "Celeste", owner: "ioB-ybbolB", repo: "celeste", base: "jsdelivr" },
+  { name: "Drift Boss", owner: "ioB-ybbolB", repo: "drift-boss", base: "jsdelivr" },
+  { name: "Geometry Dash", owner: "ioB-ybbolB", repo: "geometrydash-lite", base: "jsdelivr" },
+  { name: "Retro Bowl", owner: "ioB-ybbolB", repo: "retro-bowl", base: "jsdelivr" },
+  { name: "Poly Track", owner: "ioB-ybbolB", repo: "poly-track", base: "jsdelivr" },
+  { name: "Monkey Mart", owner: "ioB-ybbolB", repo: "monkey-mart", base: "jsdelivr" },
+  { name: "Angry Birds", owner: "ioB-ybbolB", repo: "angry-birds", base: "jsdelivr" },
+  { name: "Crazy Cattle 3D", owner: "ioB-ybbolB", repo: "crazy-cattle-3d", base: "jsdelivr" },
+  { name: "Tag", owner: "ioB-ybbolB", repo: "Tag", base: "jsdelivr" },
+  { name: "Vex 7", owner: "ioB-ybbolB", repo: "vex7", base: "jsdelivr" },
+  { name: "Vex 8", owner: "ioB-ybbolB", repo: "vex8", base: "jsdelivr" },
+  { name: "Temple Run 2", owner: "ioB-ybbolB", repo: "temple-run-2", base: "jsdelivr" },
+  { name: "Cookie Clicker", owner: "ioB-ybbolB", repo: "Cookie-Clicker", base: "jsdelivr" },
+  { name: "Chrome Dino", owner: "ioB-ybbolB", repo: "chrome-dino", base: "jsdelivr" },
+  { name: "Flappy Bird", owner: "ioB-ybbolB", repo: "flappy-bird", base: "jsdelivr" },
+  { name: "Stickman Hook", owner: "ioB-ybbolB", repo: "Stickman-Hook", base: "jsdelivr" },
+  { name: "Fruit Ninja", owner: "ioB-ybbolB", repo: "fruit-ninja", base: "jsdelivr" },
+  { name: "Jetpack Joyride", owner: "ioB-ybbolB", repo: "jetpack-joyride", base: "jsdelivr" },
+  { name: "Time Shooter 2", owner: "ioB-ybbolB", repo: "Time-Shooter-2", base: "jsdelivr" },
+  { name: "Time Shooter 3", owner: "ioB-ybbolB", repo: "Time-Shooter-3", base: "jsdelivr" },
+  { name: "Granny", owner: "ioB-ybbolB", repo: "granny", base: "jsdelivr" },
+  { name: "Color Switch 2", owner: "ioB-ybbolB", repo: "color-switch-2-challenges", base: "jsdelivr" },
+  { name: "Basket Random", owner: "ioB-ybbolB", repo: "Basket-Random", base: "jsdelivr" },
+  { name: "5 Nights at Epstein's", owner: "ioB-ybbolB", repo: "5-nights-at-epsteins", base: "jsdelivr" },
+  { name: "Deltarune", owner: "ioB-ybbolB", repo: "deltarune", base: "jsdelivr" },
+  { name: "Storm the House", owner: "ioB-ybbolB", repo: "storm-the-house", base: "jsdelivr" },
+  { name: "Choppy Orc", owner: "ioB-ybbolB", repo: "choppy-orc", base: "jsdelivr" },
+  { name: "Kiwi Clicker", owner: "ioB-ybbolB", repo: "kiwi-clicker", base: "jsdelivr" },
+];
+
+const emulatedGames = [
+  { name: "Super Mario Bros", owner: "ioB-ybbolB", repo: "Mario", base: "jsdelivr" },
+  { name: "Super Mario Bros 3", owner: "ioB-ybbolB", repo: "Mario3", base: "jsdelivr" },
+  { name: "Super Mario World", owner: "ioB-ybbolB", repo: "MarioWorld", base: "jsdelivr" },
+  { name: "Super Mario 64", owner: "ioB-ybbolB", repo: "mario-64", base: "jsdelivr" },
+  { name: "New Super Mario Bros", owner: "ioB-ybbolB", repo: "new-mario", base: "jsdelivr" },
+  { name: "Pokemon Ruby", owner: "ioB-ybbolB", repo: "pokemon-ruby", base: "jsdelivr" },
+  { name: "Pokemon Sapphire", owner: "ioB-ybbolB", repo: "pokemon-sapphire", base: "jsdelivr" },
+  { name: "Pokemon Emerald", owner: "ioB-ybbolB", repo: "pokemon-emerald", base: "jsdelivr" },
+  { name: "Pokemon Platinum", owner: "ioB-ybbolB", repo: "pokemon-platinum", base: "jsdelivr" },
+  { name: "Pokemon Radical Red", owner: "ioB-ybbolB", repo: "pokemon-radical-red", base: "jsdelivr" },
+];
+
+const exploits = [
+  { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
+];
+
+let currentGames = jsGames;
+
+function filterGames() {
+    const query = document.getElementById('gameSearch').value.toLowerCase();
+    const filtered = currentGames.filter(game => game.name.toLowerCase().includes(query));
+    renderGames(filtered);
+}
+
+function showJavaScriptGames() {
+  currentGames = jsGames;
+  document.getElementById('gameSearch').value = '';
+  renderGames(jsGames);
+}
+
+function showEmulatedGames() {
+  currentGames = emulatedGames;
+  document.getElementById('gameSearch').value = '';
+  renderGames(emulatedGames);
+}
+
+function showExploits() {
+  currentGames = exploits;
+  document.getElementById('gameSearch').value = '';
+  renderGames(exploits);
+}
+
+function resolveGameImage(repo){
+const base="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
+const candidates=[`${base}${repo}.png`,`${base}${repo}.webp`,`${base}${repo}.jpg`];
+return new Promise(resolve=>{
+const img=new Image();let i=0;
+const tryNext=()=>{if(i>=candidates.length){resolve(null);return;}img.src=candidates[i++];};
+img.onload=()=>resolve(img.src);
+img.onerror=tryNext;
+tryNext();
+});
+}
+
+async function renderGames(games) {
+  const container = document.getElementById('gameContainer');
+  container.innerHTML = '';
+
+  for (const game of games) {
+    const wrapper = document.createElement('div');
+
+    const btn = document.createElement('button');
+    btn.className = 'rounded-button';
+
+    resolveGameImage(game.repo).then(url => {
+      if (url) {
+        btn.style.backgroundImage = `url('${url}')`;
+      } else {
+        btn.style.backgroundImage = "url('https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png')";
+      }
+    });
+
+    btn.onclick = () =>
+      loadGame(game.owner, game.repo, game.name, game.base);
+
+    const label = document.createElement('div');
+    label.className = 'button-text';
+    label.textContent = game.name;
+
+    wrapper.appendChild(btn);
+    wrapper.appendChild(label);
+    container.appendChild(wrapper);
+  }
+}
+
+document.getElementById('jsGamesBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('emulatedGamesBtn').classList.remove('selected');
+  document.getElementById('exploitsBtn').classList.remove('selected');
+  showJavaScriptGames();
+};
+
+document.getElementById('emulatedGamesBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('jsGamesBtn').classList.remove('selected');
+  document.getElementById('exploitsBtn').classList.remove('selected');
+  showEmulatedGames();
+};
+
+document.getElementById('exploitsBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('jsGamesBtn').classList.remove('selected');
+  document.getElementById('emulatedGamesBtn').classList.remove('selected');
+  showExploits();
+};
+
+showJavaScriptGames();
+</script>
+<script>
+
+const BRANCHES=["latest","gh-pages","main","master"];
+
+async function resolveBranch(owner,repo){
+for(const b of BRANCHES){
+const test=`https://cdn.jsdelivr.net/gh/${owner}/${repo}@${b}/index.html`;
+try{const r=await fetch(test,{method:"HEAD"});if(r.ok)return b;}catch{}
+}
+throw "no branch";
+}
+
+function rewriteLargeAssets(html,owner,repo,branch){
+return html.replace(/(src|href)=["']([^"']+?\.(wasm|data|unityweb))["']/gi,
+(m,a,path)=>{
+if(/https?:/i.test(path))return m;
+const raw=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`+path.replace(/^\/+/,"");
+return `${a}="${raw}"`;
+});
+}
+
+function rewriteNavigation(html){
+html=html.replace(/<a([^>]*?)href=["']([^"']+)["']([^>]*)>/gi,
+(m,a,href,b)=>{
+if(/^(https?:|#|mailto)/i.test(href))return m;
+return `<a${a}href="#" onclick="__navigate('${href}');return false;"${b}>`;
+});
+html=html.replace(/window\.location\.href\s*=\s*["']([^"']+)["']/gi,
+(m,url)=>`__navigate('${url}')`);
+html=html.replace(/location\.href\s*=\s*["']([^"']+)["']/gi,
+(m,url)=>`__navigate('${url}')`);
+return html;
+}
+
+function injectCore(html, base, gameName) {
+    html = rewriteNavigation(html);
+    
+    const hasBase = /<base\s+href=/i.test(html);
+    
+    const core = `
+${hasBase ? '' : `<base href="${base}">`}
+<title>${gameName}</title>
+<script>
+function __navigate(p){
+    if(!p.startsWith("http")) p = new URL(p, document.baseURI).href;
+    window.opener.__dynamicFetch(window, p, "${gameName}");
+}
+<\/script>`;
+
+    if (/<head/i.test(html)) {
+        return html.replace(/<head[^>]*>/i, m => m + core);
+    }
+    return core + html;
+}
+
+async function __dynamicFetch(tab, url, gameName) {
+    const res = await fetch(url);
+    let html = await res.text();
+    const base = url.substring(0, url.lastIndexOf("/") + 1);
+    
+    html = injectCore(html, base, gameName); 
+    
+    tab.document.open();
+    tab.document.write(html);
+    tab.document.close();
+}
+
+async function loadGame(owner,repo,name,baseProvider="jsdelivr"){
+const tab=window.open("about:blank", "_blank");
+if(!tab)return;
+  const icon = tab.document.createElement("link");
+  icon.rel = "icon";
+  icon.href = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/main/favicon.png";
+  tab.document.head.appendChild(icon);
+
+ tab.document.write(`
+    <html>
+      <head>
+        <title>Loading ${name}...</title>
+        <style>
+          body {
+            background: #000;
+            color: #fff;
+            font-family: monospace;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+          }
+        </style>
+      </head>
+      <body>Loading ${name}...</body>
+    </html>
+  `);
+
+const branch=await resolveBranch(owner,repo);
+
+let base,index;
+if(baseProvider==="raw"){
+base=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
+index=base+"index.html";
+}else{
+base=`https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/`;
+index=base+"index.html";
+}
+
+const res=await fetch(index);
+let html=await res.text();
+html=rewriteLargeAssets(html,owner,repo,branch);
+html=injectCore(html,base,name);
+
+tab.document.open();
+tab.document.write(html);
+tab.document.close();
+}
+</script>
+</body>
+</html>
+<body>
+  <div style="pointer-events:none; user-select:none;">
+    <script type="text/javascript" src="https://counter.websiteout.com/js/2/6/0/0"></script>
+  </div>
+</body>
