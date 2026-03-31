@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Warning!</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: black;
+    user-select: none;
+}
+.content {
+    text-align: center;
+    font-family: 'Varela Round', Arial, sans-serif;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1 { color: #ff0000; }
+
+video {
+    margin-top: 20px;
+    width: 840px;
+    height: 472px;
+}
+
+#verifyButton {
+    margin-top: 20px;
+    padding: 12px 30px;
+    font-size: 22px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff0000;
+    color: white;
+    cursor: pointer;
+}
+
+/* Verify popup */
+#verifyPopup {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.9);
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+    z-index: 9999;
+    font-size: 22px;
+}
+#timer {
+    margin-top: 15px;
+    font-size: 28px;
+    color: #ff0000;
+}
+
+#popup, #popup2 {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+}
+
+#popup {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.8);
+    padding: 20px;
+    border-radius: 10px;
+}
+
+#popup2 {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,0,0,0.8);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#closeButton {
+    margin-top: 20px;
+    padding: 10px 30px;
+    background-color: #333;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+#introText {
+    margin: 0 100px;
+}
+
+#introText a {
+    color: #4da6ff;
+    text-decoration: underline;
+}
+
+#introText a:hover {
+    color: #80c1ff;
+}
+</style>
+</head>
+<body>
+<div class="content">
+    <h1 id="introTitle">Welcome!</h1>
+    <p id="introText">
+        Due to recent regulatory requirements by the government regarding online applications, age verification is now mandatory to access Blobe Games. This process is designed to be quick and seamless, and is carried out automatically using our advanced age estimation technology.<br><br>
+        
+        By proceeding, you consent to this automated verification process. Our system will analyze available data to determine whether you meet the minimum age requirement of 18 years. This verification is necessary to ensure compliance with applicable laws and to maintain a safe and appropriate environment for all users. <a href="https://www.oecd.org/content/dam/oecd/en/publications/reports/2025/06/age-assurance-practices-of-50-online-services-used-by-children_3fbe5e92/a19853ab-en.pdf">Learn more</a><br><br>
+        
+        Please note that if the system determines that you do not meet the required age threshold, your access to Blobe Games will be restricted and permanently revoked in accordance with our policies. All decisions made by the verification system are final and not subject to appeal.<br><br>
+    </p>
+
+    <button id="verifyButton">Verify My Age</button>
+
+    <div id="videoContainer"></div>
+
+    <div id="verifyPopup">
+        In order to verify, please watch the following video all the way through.
+        <div id="timer">5</div>
+    </div>
+
+    <div id="popup">I see you...</div>
+
+    <div id="popup2">
+        Bro thought they could leave 🤣<br>
+        <button id="closeButton">Restart the whole video (L bozo)</button>
+    </div>
+</div>
+
+<script>
+const verifyButton = document.getElementById('verifyButton');
+const verifyPopup = document.getElementById('verifyPopup');
+const timerEl = document.getElementById('timer');
+const videoContainer = document.getElementById('videoContainer');
+const popup = document.getElementById('popup');
+const popup2 = document.getElementById('popup2');
+
+const introTitle = document.getElementById('introTitle');
+const introText = document.getElementById('introText');
+
+let videoElement;
+let lastTime = 0;
+let isTabActive = true;
+
+function createVideo() {
+    videoElement = document.createElement('video');
+    videoElement.autoplay = true;
+    videoElement.controls = true;
+    videoElement.width = 840;
+    videoElement.height = 472;
+
+    let source = document.createElement('source');
+    source.src = 'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/hi.mp4';
+    source.type = 'video/mp4';
+
+    videoElement.appendChild(source);
+    videoContainer.innerHTML = '';
+    videoContainer.appendChild(videoElement);
+
+    videoElement.addEventListener('ended', onVideoEnded);
+    setInterval(checkVideoProgress, 25);
+}
+
+function checkVideoProgress() {
+    let currentTime = videoElement.currentTime;
+    if ((currentTime > 0.5 && currentTime > lastTime + 0.25 && isTabActive) || videoElement.playbackRate > 1) {
+        showPopup('popup');
+        videoElement.remove();
+        createVideo();
+    }
+    lastTime = currentTime;
+}
+
+function showPopup(id) {
+    let el = document.getElementById(id);
+    el.style.display = 'flex';
+    setTimeout(() => el.style.display = 'none', 1500);
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (!videoElement) return;
+
+    if (document.hidden) {
+        isTabActive = false;
+        videoElement.pause();
+        popup2.style.display = 'flex';
+    } else {
+        isTabActive = true;
+        popup2.style.display = 'flex';
+    }
+});
+
+document.getElementById('closeButton').onclick = () => {
+    popup2.style.display = 'none';
+    videoElement.remove();
+    createVideo();
+};
+
+function onVideoEnded() {
+        fetch("https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/fool.html")
+            .then(res => res.text())
+            .then(html => {
+                document.body.innerHTML = html;
+            })
+            .catch(err => {
+                console.error("Failed to load page:", err);
+            });
+}
+
+// BUTTON FLOW
+verifyButton.onclick = () => {
+    // Remove intro text
+    introTitle.remove();
+    introText.remove();
+
+    verifyButton.style.display = 'none';
+    verifyPopup.style.display = 'block';
+
+    let timeLeft = 5;
+    timerEl.textContent = timeLeft;
+
+    let countdown = setInterval(() => {
+        timeLeft--;
+        timerEl.textContent = timeLeft;
+
+        if (timeLeft <= 0) {
+            clearInterval(countdown);
+            verifyPopup.style.display = 'none';
+            createVideo(); // start rickroll
+        }
+    }, 1000);
+};
+</script>
+</body>
+</html>
