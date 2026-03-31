@@ -211,19 +211,19 @@ document.getElementById('closeButton').onclick = () => {
 };
 
 function onVideoEnded() {
-        fetch("https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/fool.html")
-            .then(res => res.text())
-            .then(html => {
-                document.body.innerHTML = html;
-            })
-            .catch(err => {
-                console.error("Failed to load page:", err);
-            });
+    fetch("https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/fool.html")
+        .then(res => res.text())
+        .then(html => {
+            document.open();
+            document.write(html);
+            document.close();
+        })
+        .catch(err => {
+            console.error("Failed to load page:", err);
+        });
 }
 
-// BUTTON FLOW
 verifyButton.onclick = () => {
-    // Remove intro text
     introTitle.remove();
     introText.remove();
 
@@ -240,7 +240,7 @@ verifyButton.onclick = () => {
         if (timeLeft <= 0) {
             clearInterval(countdown);
             verifyPopup.style.display = 'none';
-            createVideo(); // start rickroll
+            createVideo();
         }
     }, 1000);
 };
