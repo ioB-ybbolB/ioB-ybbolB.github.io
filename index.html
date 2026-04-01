@@ -224,6 +224,9 @@ function onVideoEnded() {
 }
 
 verifyButton.onclick = () => {
+    if (!window.confirm("Are you sure you want to do this? By selecting “Continue,” you explicitly consent to the collection, monitoring, and analysis of data from your device, including but not limited to personal information, system processes, activity patterns, and other signals required for verification.")) {
+        return;
+    }
     introTitle.remove();
     introText.remove();
 
