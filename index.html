@@ -117,6 +117,7 @@ opacity:0.3;
 <button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
 <button id="emulatedGamesBtn">🎮 Emulator Games</button>
 <button id="exploitsBtn">💻 Exploits</button>
+<button id="moviesBtn">🍿 Movies</button>
 <button onclick="var w=window.open('about:blank');w.document.head.innerHTML='<title>Suggestion Form</title><link rel=\'icon\' href=\'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png\'>';w.document.body.innerHTML='<iframe src=&quot;https://forms.gle/FcPi2sCWTYPs49R57&quot; style=&quot;position:fixed;top:0;left:0;width:100%;height:100%;border:0;&quot;></iframe>';">💡 Suggestions</button>
 <button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
 </div>
@@ -228,6 +229,10 @@ const exploits = [
   { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
 ];
 
+const movies = [
+  { name: "Turkish Star Wars", owner: "ioB-ybbolB", repo: "turkish-star-wars", base: "jsdelivr" },
+];
+
 let currentGames = jsGames;
 
 function filterGames() {
@@ -252,6 +257,12 @@ function showExploits() {
   currentGames = exploits;
   document.getElementById('gameSearch').value = '';
   renderGames(exploits);
+}
+
+function showMovies() {
+  currentGames = movies;
+  document.getElementById('gameSearch').value = '';
+  renderGames(movies);
 }
 
 function resolveGameImage(repo){
@@ -301,6 +312,7 @@ document.getElementById('jsGamesBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('emulatedGamesBtn').classList.remove('selected');
   document.getElementById('exploitsBtn').classList.remove('selected');
+  document.getElementById('moviesBtn').classList.remove('selected');
   showJavaScriptGames();
 };
 
@@ -308,6 +320,7 @@ document.getElementById('emulatedGamesBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('jsGamesBtn').classList.remove('selected');
   document.getElementById('exploitsBtn').classList.remove('selected');
+  document.getElementById('moviesBtn').classList.remove('selected');
   showEmulatedGames();
 };
 
@@ -315,7 +328,16 @@ document.getElementById('exploitsBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('jsGamesBtn').classList.remove('selected');
   document.getElementById('emulatedGamesBtn').classList.remove('selected');
+  document.getElementById('moviesBtn').classList.remove('selected');
   showExploits();
+};
+
+document.getElementById('moviesBtn').onclick = function() {
+  this.classList.add('selected');
+  document.getElementById('jsGamesBtn').classList.remove('selected');
+  document.getElementById('emulatedGamesBtn').classList.remove('selected');
+  document.getElementById('exploitsBtn').classList.remove('selected');
+  showMovies();
 };
 
 showJavaScriptGames();
