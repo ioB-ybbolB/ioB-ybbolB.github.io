@@ -261,7 +261,7 @@ function showEmulatedGames() {
   renderGames(emulatedGames);
 }
 
-function showapps() {
+function showApps() {
   currentGames = apps;
   document.getElementById('gameSearch').value = '';
   renderGames(apps);
@@ -337,7 +337,7 @@ document.getElementById('appsBtn').onclick = function() {
   document.getElementById('jsGamesBtn').classList.remove('selected');
   document.getElementById('emulatedGamesBtn').classList.remove('selected');
   document.getElementById('moviesBtn').classList.remove('selected');
-  showapps();
+  showApps();
 };
 
 document.getElementById('moviesBtn').onclick = function() {
