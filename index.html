@@ -108,7 +108,7 @@ opacity:0.3;
 <div class="scanlines"></div>
 
 <div class="sidebar">
-<h2>Blobe Games v2.16</h2>
+<h2>Blobe Games v2.17</h2>
 
 <div class="search-container">
     <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
@@ -116,7 +116,7 @@ opacity:0.3;
 
 <button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
 <button id="emulatedGamesBtn">🎮 Emulator Games</button>
-<button id="exploitsBtn">💻 Exploits</button>
+<button id="appsBtn">💻 Apps</button>
 <button id="moviesBtn">🍿 Movies</button>
 <button onclick="var w=window.open('about:blank');w.document.head.innerHTML='<title>Suggestion Form</title><link rel=\'icon\' href=\'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png\'>';w.document.body.innerHTML='<iframe src=&quot;https://forms.gle/FcPi2sCWTYPs49R57&quot; style=&quot;position:fixed;top:0;left:0;width:100%;height:100%;border:0;&quot;></iframe>';">💡 Suggestions</button>
 <button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
@@ -232,7 +232,7 @@ const emulatedGames = [
   { name: "Pokemon Radical Red", owner: "ioB-ybbolB", repo: "pokemon-radical-red", base: "jsdelivr" },
 ];
 
-const exploits = [
+const apps = [
   { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
   { name: "ChatGPT", owner: "ioB-ybbolB", repo: "blobeGPT", base: "jsdelivr" },
 ];
@@ -261,10 +261,10 @@ function showEmulatedGames() {
   renderGames(emulatedGames);
 }
 
-function showExploits() {
-  currentGames = exploits;
+function showapps() {
+  currentGames = apps;
   document.getElementById('gameSearch').value = '';
-  renderGames(exploits);
+  renderGames(apps);
 }
 
 function showMovies() {
@@ -319,7 +319,7 @@ async function renderGames(games) {
 document.getElementById('jsGamesBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('emulatedGamesBtn').classList.remove('selected');
-  document.getElementById('exploitsBtn').classList.remove('selected');
+  document.getElementById('appsBtn').classList.remove('selected');
   document.getElementById('moviesBtn').classList.remove('selected');
   showJavaScriptGames();
 };
@@ -327,24 +327,24 @@ document.getElementById('jsGamesBtn').onclick = function() {
 document.getElementById('emulatedGamesBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('jsGamesBtn').classList.remove('selected');
-  document.getElementById('exploitsBtn').classList.remove('selected');
+  document.getElementById('appsBtn').classList.remove('selected');
   document.getElementById('moviesBtn').classList.remove('selected');
   showEmulatedGames();
 };
 
-document.getElementById('exploitsBtn').onclick = function() {
+document.getElementById('appsBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('jsGamesBtn').classList.remove('selected');
   document.getElementById('emulatedGamesBtn').classList.remove('selected');
   document.getElementById('moviesBtn').classList.remove('selected');
-  showExploits();
+  showapps();
 };
 
 document.getElementById('moviesBtn').onclick = function() {
   this.classList.add('selected');
   document.getElementById('jsGamesBtn').classList.remove('selected');
   document.getElementById('emulatedGamesBtn').classList.remove('selected');
-  document.getElementById('exploitsBtn').classList.remove('selected');
+  document.getElementById('appsBtn').classList.remove('selected');
   showMovies();
 };
 
