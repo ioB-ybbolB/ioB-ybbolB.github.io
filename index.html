@@ -108,7 +108,7 @@ opacity:0.3;
 <div class="scanlines"></div>
 
 <div class="sidebar">
-<h2>Blobe Games v2.17</h2>
+<h2>Blobe Games v2.18</h2>
 
 <div class="search-container">
     <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
@@ -352,23 +352,40 @@ showJavaScriptGames();
 </script>
 <script>
 
-const BRANCHES=["main","gh-pages","master","latest"];
+const BRANCHES = ["main", "gh-pages", "master", "latest"];
 
-async function resolveBranch(owner,repo){
-for(const b of BRANCHES){
-const test=`https://cdn.jsdelivr.net/gh/${owner}/${repo}@${b}/index.html`;
-try{const r=await fetch(test,{method:"HEAD"});if(r.ok)return b;}catch{}
-}
-throw "no branch";
+async function resolveBranch(owner, repo) {
+  for (const b of BRANCHES) {
+    const test = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${b}/index.html`;
+    try {
+      const r = await fetch(test, { method: "HEAD" });
+      if (r.ok) return b;
+    } catch (e) {}
+  }
+  return "latest2";
 }
 
-function rewriteLargeAssets(html,owner,repo,branch){
-return html.replace(/(src|href)=["']([^"']+?\.(wasm|data|unityweb))["']/gi,
-(m,a,path)=>{
-if(/https?:/i.test(path))return m;
-const raw=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`+path.replace(/^\/+/,"");
-return `${a}="${raw}"`;
-});
+async function getLatestCommit(owner, repo) {
+  try {
+    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch commit for ${owner}/${repo}`);
+    }
+    const data = await response.json();
+    return data[0].sha;
+  } catch (error) {
+    console.warn("GitHub API error:", error);
+    return await resolveBranch(owner, repo);
+  }
+}
+
+function rewriteLargeAssets(html, owner, repo, ref) {
+  return html.replace(/(src|href)=["']([^"']+?\.(wasm|data|unityweb))["']/gi,
+  (m, a, path) => {
+    if(/https?:/i.test(path))return m;
+    const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/` + path.replace(/^\/+/, "");
+    return `${a}="${raw}"`;
+  });
 }
 
 function rewriteNavigation(html){
@@ -417,15 +434,15 @@ async function __dynamicFetch(tab, url, gameName) {
     tab.document.close();
 }
 
-async function loadGame(owner,repo,name,baseProvider="jsdelivr"){
-const tab=window.open("about:blank", "_blank");
-if(!tab)return;
+async function loadGame(owner, repo, name, baseProvider = "jsdelivr") {
+  const tab = window.open("about:blank", "_blank");
+  if (!tab) return;
   const icon = tab.document.createElement("link");
   icon.rel = "icon";
   icon.href = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/main/favicon.png";
   tab.document.head.appendChild(icon);
 
- tab.document.write(`
+  tab.document.write(`
     <html>
       <head>
         <title>Loading ${name}...</title>
@@ -445,31 +462,33 @@ if(!tab)return;
     </html>
   `);
 
-const branch=await resolveBranch(owner,repo);
+  const ref = await getLatestCommit(owner, repo);
+  const cacheBust = Math.floor(Math.random() * 1000000000);
 
-let base,index;
-if(baseProvider==="raw"){
-base=`https://raw.githubusercontent.com/${owner}/${repo}/${branch}/`;
-index=base+"index.html";
-}else{
-base=`https://cdn.jsdelivr.net/gh/${owner}/${repo}@${branch}/`;
-index=base+"index.html";
-}
+  let base, index;
+  if (baseProvider === "raw") {
+    base = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/`;
+    index = `${base}index.html?v=${cacheBust}`;
+  } else {
+    base = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/`;
+    index = `${base}index.html?v=${cacheBust}`;
+  }
 
-const res=await fetch(index);
-let html=await res.text();
-html=rewriteLargeAssets(html,owner,repo,branch);
-html=injectCore(html,base,name);
+  const res = await fetch(index);
+  let html = await res.text();
+  
+  html = rewriteLargeAssets(html, owner, repo, ref);
+  html = injectCore(html, base, name);
 
-tab.document.open();
-tab.document.write(html);
-tab.document.close();
+  tab.document.open();
+  tab.document.write(html);
+  tab.document.close();
 }
 </script>
+
+<div style="pointer-events:none; user-select:none;">
+    <script type="text/javascript" src="https://counter.websiteout.com/js/2/6/0/0"></script>
+</div>
+
 </body>
 </html>
-<body>
-  <div style="pointer-events:none; user-select:none;">
-    <script type="text/javascript" src="https://counter.websiteout.com/js/2/6/0/0"></script>
-  </div>
-</body>
