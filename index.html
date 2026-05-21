@@ -403,11 +403,11 @@ return html;
 
 function injectCore(html, base, gameName) {
     html = rewriteNavigation(html);
-    
+    html = html.replace(/^\s*<!DOCTYPE[^>]*>/i, '');
+
     const hasBase = /<base\s+href=/i.test(html);
     
-    const core = `
-${hasBase ? '' : `<base href="${base}">`}
+    const core = `${hasBase ? '' : `<base href="${base}">`}
 <title>${gameName}</title>
 <script>
 function __navigate(p){
@@ -417,9 +417,22 @@ function __navigate(p){
 <\/script>`;
 
     if (/<head/i.test(html)) {
-        return html.replace(/<head[^>]*>/i, m => m + core);
+        html = html.replace(/<head[^>]*>/i, m => m + '\n' + core);
+        return '<!DOCTYPE html>\n' + html.trim();
+    } else if (/<html/i.test(html)) {
+        html = html.replace(/<html[^>]*>/i, m => m + '\n' + core);
+        return '<!DOCTYPE html>\n' + html.trim();
+    } else {
+        return `<!DOCTYPE html>
+<html>
+<head>
+${core}
+</head>
+<body>
+${html.trim()}
+</body>
+</html>`;
     }
-    return core + html;
 }
 
 async function __dynamicFetch(tab, url, gameName) {
