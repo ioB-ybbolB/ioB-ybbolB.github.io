@@ -463,15 +463,14 @@ async function loadGame(owner, repo, name, baseProvider = "jsdelivr") {
   `);
 
   const ref = await getLatestCommit(owner, repo);
-  const cacheBust = Math.floor(Math.random() * 1000000000);
 
   let base, index;
   if (baseProvider === "raw") {
     base = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/`;
-    index = `${base}index.html?v=${cacheBust}`;
+    index = `${base}index.html`;
   } else {
     base = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/`;
-    index = `${base}index.html?v=${cacheBust}`;
+    index = `${base}index.html`;
   }
 
   const res = await fetch(index);
