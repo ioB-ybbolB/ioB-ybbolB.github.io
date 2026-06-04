@@ -219,7 +219,7 @@ const jsGames = [
   { name: "Boxing Random", owner: "ioB-ybbolB", repo: "Boxing-Random", base: "jsdelivr" },
   { name: "Retro Bowl College", owner: "ioB-ybbolB", repo: "retro-bowl-college", base: "jsdelivr" },
   { name: "Poor Bunny", owner: "ioB-ybbolB", repo: "PoorBunny", base: "jsdelivr" },
-  { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io", base: "jsdelivr" }, // from here on out i lwk give up forking everything
+  { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io", base: "jsdelivr" },
   { name: "Capybara Clicker", owner: "bubbls", repo: "UGS-Assets", base: "jsdelivr", path: "capybara clicker" },
   { name: "Learn to Fly 3", owner: "ioB-ybbolB", repo: "learn-to-fly-3", base: "jsdelivr" },
 ];
@@ -279,16 +279,17 @@ function showMovies() {
   renderGames(movies);
 }
 
-function resolveGameImage(repo){
-const base="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
-const candidates=[`${base}${repo}.png`,`${base}${repo}.webp`,`${base}${repo}.jpg`];
-return new Promise(resolve=>{
-const img=new Image();let i=0;
-const tryNext=()=>{if(i>=candidates.length){resolve(null);return;}img.src=candidates[i++];};
-img.onload=()=>resolve(img.src);
-img.onerror=tryNext;
-tryNext();
-});
+function resolveGameImage(game){
+    const base="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
+    const targetName = game.path ? game.path : game.repo;
+    const candidates=[`${base}${targetName}.png`,`${base}${targetName}.webp`,`${base}${targetName}.jpg`];
+    return new Promise(resolve=>{
+    const img=new Image();let i=0;
+    const tryNext=()=>{if(i>=candidates.length){resolve(null);return;}img.src=candidates[i++];};
+    img.onload=()=>resolve(img.src);
+    img.onerror=tryNext;
+    tryNext();
+    });
 }
 
 async function renderGames(games) {
@@ -301,7 +302,8 @@ async function renderGames(games) {
     const btn = document.createElement('button');
     btn.className = 'rounded-button';
 
-    resolveGameImage(game.repo).then(url => {
+    // Fixed parameter payload to send the entire game object
+    resolveGameImage(game).then(url => {
       if (url) {
         btn.style.backgroundImage = `url('${url}')`;
       } else {
