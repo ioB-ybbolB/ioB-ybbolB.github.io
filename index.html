@@ -108,7 +108,7 @@ opacity:0.3;
 <div class="scanlines"></div>
 
 <div class="sidebar">
-<h2>Blobe Games v2.18</h2>
+<h2>Blobe Games v2.19</h2>
 
 <div class="search-container">
     <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
@@ -220,6 +220,7 @@ const jsGames = [
   { name: "Retro Bowl College", owner: "ioB-ybbolB", repo: "retro-bowl-college", base: "jsdelivr" },
   { name: "Poor Bunny", owner: "ioB-ybbolB", repo: "PoorBunny", base: "jsdelivr" },
   { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io", base: "jsdelivr" },
+  { name: "Capybara Clicker", owner: "bubbls", repo: "UGS-Assets", base: "jsdelivr", path: "capybara clicker" },
 ];
 
 const emulatedGames = [
@@ -308,7 +309,7 @@ async function renderGames(games) {
     });
 
     btn.onclick = () =>
-      loadGame(game.owner, game.repo, game.name, game.base);
+      loadGame(game.owner, game.repo, game.name, game.base, game.path);
 
     const label = document.createElement('div');
     label.className = 'button-text';
@@ -451,7 +452,7 @@ async function __dynamicFetch(tab, url, gameName) {
     tab.document.close();
 }
 
-async function loadGame(owner, repo, name, baseProvider = "jsdelivr") {
+async function loadGame(owner, repo, name, baseProvider = "jsdelivr", path = "") {
   const tab = window.open("about:blank", "_blank");
   if (!tab) return;
   const icon = tab.document.createElement("link");
@@ -464,30 +465,67 @@ async function loadGame(owner, repo, name, baseProvider = "jsdelivr") {
     <html>
       <head>
         <title>Loading ${name}...</title>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
         <style>
           body {
-            background: #000;
-            color: #fff;
-            font-family: monospace;
+            margin: 0;
+            background: radial-gradient(circle at center, #000010, #000);
+            color: #0ff;
+            font-family: 'Orbitron', sans-serif;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            overflow: hidden;
+          }
+          
+          .spinner {
+            width: 60px;
+            height: 60px;
+            border: 6px solid rgba(0, 255, 255, 0.1);
+            border-top: 6px solid #0ff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 25px;
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+          }
+
+          @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+          }
+
+          .loading-text {
+            font-size: 1.5em;
+            letter-spacing: 3px;
+            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+            animation: pulse 1.5s ease-in-out infinite;
+          }
+
+          @keyframes pulse {
+            0%, 100% { opacity: 1; text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
+            50% { opacity: 0.6; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
           }
         </style>
       </head>
-      <body>Loading ${name}...</body>
+      <body>
+        <div class="spinner"></div>
+        <div class="loading-text">Loading ${name}...</div>
+      </body>
     </html>
   `);
 
   const ref = await getLatestCommit(owner, repo);
 
+  let subDir = path ? path.replace(/^\/+/, '').replace(/\/?$/, '/') : '';
+
   let base, index;
   if (baseProvider === "raw") {
-    base = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/`;
+    base = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${subDir}`;
     index = `${base}index.html`;
   } else {
-    base = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/`;
+    base = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${subDir}`;
     index = `${base}index.html`;
   }
 
