@@ -219,7 +219,7 @@ const jsGames = [
   { name: "Boxing Random", owner: "ioB-ybbolB", repo: "Boxing-Random", base: "jsdelivr" },
   { name: "Retro Bowl College", owner: "ioB-ybbolB", repo: "retro-bowl-college", base: "jsdelivr" },
   { name: "Poor Bunny", owner: "ioB-ybbolB", repo: "PoorBunny", base: "jsdelivr" },
-  { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io", base: "jsdelivr" },
+  { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io", base: "jsdelivr" }, // from here on out i lwk give up forking everything
   { name: "Capybara Clicker", owner: "bubbls", repo: "UGS-Assets", base: "jsdelivr", path: "capybara clicker" },
   { name: "Learn to Fly 3", owner: "ioB-ybbolB", repo: "learn-to-fly-3", base: "jsdelivr" },
 ];
@@ -302,7 +302,6 @@ async function renderGames(games) {
     const btn = document.createElement('button');
     btn.className = 'rounded-button';
 
-    // Fixed parameter payload to send the entire game object
     resolveGameImage(game).then(url => {
       if (url) {
         btn.style.backgroundImage = `url('${url}')`;
