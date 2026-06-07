@@ -1,425 +1,857 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>BlobeGames II</title>
-<link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png">
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
-<style>
-@keyframes glow {
-0%{text-shadow:0 0 5px #0ff,0 0 10px #0ff,0 0 20px #0ff;}
-50%{text-shadow:0 0 20px #0ff,0 0 40px #0ff,0 0 60px #0ff;}
-100%{text-shadow:0 0 5px #0ff,0 0 10px #0ff,0 0 20px #0ff;}
-}
-body{
-margin:0;
-font-family:"Roboto Mono",monospace;
-background:radial-gradient(circle at top,#000010,#000);
-color:#00ffff;
-text-align:center;
-overflow-x:hidden;
-}
-h1{margin-top:40px;font-size:3em;letter-spacing:4px;animation:glow 3s infinite ease-in-out;}
-.sidebar{
-position:fixed;left:0;top:0;width:250px;height:100%;
-background-color:#111;color:#00ff00;
-font-family:'Orbitron',sans-serif;
-padding:20px;
-box-shadow:2px 0 10px rgba(0,255,0,0.5);
-text-transform:uppercase;
-z-index: 100;
-}
-.sidebar h2{font-size:1.8em;margin-bottom:20px;text-shadow:0 0 10px #00ff00;}
+  <meta charset="UTF-8">
+  <title>BlobeGames II</title>
+  <link rel="shortcut icon" type="image/png" href="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
+      50% { text-shadow: 0 0 20px #0ff, 0 0 40px #0ff, 0 0 60px #0ff; }
+      100% { text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff; }
+    }
 
-.search-container {
-    margin-bottom: 20px;
-}
-#gameSearch {
-    width: 100%;
-    padding: 10px;
-    background: #000;
-    border: 2px solid #00ff00;
-    color: #00ff00;
-    font-family: 'Orbitron', sans-serif;
-    border-radius: 5px;
-    outline: none;
-    box-shadow: 0 0 5px #00ff00;
-    box-sizing: border-box;
-}
-#gameSearch:focus {
-    box-shadow: 0 0 15px #00ff00;
-}
+    body {
+      margin: 0;
+      font-family: "Roboto Mono", monospace;
+      background: radial-gradient(circle at top, #000010, #000);
+      color: #00ffff;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-.sidebar button{
-display:block;width:100%;padding:10px;margin:5px 0;
-background:transparent;border:2px solid #0ff;color:#0ff;
-font-size:1.2em;cursor:pointer;text-align:left;
-border-radius:5px;transition:all 0.3s ease;
-box-shadow:0 0 5px #0ff;font-family:'Orbitron',sans-serif;
-}
-.sidebar button:hover{
-background-color:#0ff;color:#111;box-shadow:0 0 20px #0ff;
-}
-.sidebar .selected{
-background:linear-gradient(30deg,rgba(0,0,255,0.2),rgba(0,255,255,0.5));
-color:#0ff;text-shadow:0 0 5px #0ff;
-}
-.game-container{
-margin-left:270px;padding:20px;
-display:flex;flex-wrap:wrap;justify-content:center;
-}
-.rounded-button{
-border-radius:30px;border:2px solid #0ff;
-box-shadow:0 0 20px #0ff;width:200px;height:200px;
-margin:25px;background-size:cover;background-position:center;
-cursor:pointer;transition:all 0.3s ease;
-position:relative;overflow:hidden;
-}
-.rounded-button::before{
-content:"";position:absolute;inset:0;
-background:linear-gradient(45deg,transparent,rgba(0,255,255,0.1),transparent);
-transform:translateX(-100%);
-transition:transform 0.5s;
-}
-.rounded-button:hover::before{transform:translateX(100%);}
-.rounded-button:hover{
-transform:scale(1.1);box-shadow:0 0 30px #0ff;border-color:#f0f;
-}
-.button-text{
-color:#0ff;margin-top:15px;font-weight:bold;
-text-shadow:0 0 10px #0ff;font-size:1.2em;
-}
-.scanlines{
-pointer-events:none;position:fixed;inset:0;
-background:repeating-linear-gradient(
-0deg,
-rgba(0,255,255,0.05),
-rgba(0,255,255,0.05) 1px,
-transparent 2px,
-transparent 3px
-);
-mix-blend-mode:overlay;
-opacity:0.3;
-}
-</style>
+    h1 {
+      margin-top: 40px;
+      font-size: 3em;
+      letter-spacing: 4px;
+      animation: glow 3s infinite ease-in-out;
+    }
+
+    .sidebar {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 250px;
+      height: 100%;
+      background-color: #111;
+      color: #00ff00;
+      font-family: 'Orbitron', sans-serif;
+      padding: 20px;
+      box-shadow: 2px 0 10px rgba(0, 255, 0, 0.5);
+      text-transform: uppercase;
+      z-index: 100;
+    }
+
+    .sidebar h2 {
+      font-size: 1.8em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    .search-container {
+      margin-bottom: 20px;
+    }
+
+    #gameSearch {
+      width: 100%;
+      padding: 10px;
+      background: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 5px;
+      outline: none;
+      box-shadow: 0 0 5px #00ff00;
+      box-sizing: border-box;
+    }
+
+    #gameSearch:focus {
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    .sidebar button {
+      display: block;
+      width: 100%;
+      padding: 10px;
+      margin: 5px 0;
+      background: transparent;
+      border: 2px solid #0ff;
+      color: #0ff;
+      font-size: 1.2em;
+      cursor: pointer;
+      text-align: left;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 5px #0ff;
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    .sidebar button:hover {
+      background-color: #0ff;
+      color: #111;
+      box-shadow: 0 0 20px #0ff;
+    }
+
+    .sidebar .selected {
+      background: linear-gradient(30deg, rgba(0, 0, 255, 0.2), rgba(0, 255, 255, 0.5));
+      color: #0ff;
+      text-shadow: 0 0 5px #0ff;
+    }
+
+    .game-container {
+      margin-left: 270px;
+      padding: 74px 20px 20px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .card-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-left: 35px;
+      margin-right: 35px;
+      margin-top: 35px;
+      width: 200px;
+    }
+
+    .rounded-button {
+      border-radius: 30px;
+      border: 2px solid #0ff;
+      box-shadow: 0 0 20px #0ff;
+      width: 200px;
+      height: 200px;
+      background-size: cover;
+      background-position: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+      margin-bottom: 20px;
+    }
+
+    .rounded-button::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s;
+    }
+
+    .rounded-button:hover::before {
+      transform: translateX(100%);
+    }
+
+    .rounded-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px #0ff;
+      border-color: #f0f;
+    }
+
+    .button-text {
+      color: #0ff;
+      margin-top: 15px;
+      font-weight: bold;
+      text-shadow: 0 0 10px #0ff;
+      font-size: 1.2em;
+      text-align: center;
+      width: 120%;
+    }
+
+    .scanlines {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 255, 255, 0.05),
+        rgba(0, 255, 255, 0.05) 1px,
+        transparent 2px,
+        transparent 3px
+      );
+      mix-blend-mode: overlay;
+      opacity: 0.3;
+    }
+
+    .folder-footer {
+      position: fixed;
+      left: 310px;
+      right: 20px;
+      top: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      background: rgba(0, 0, 0, 0.72);
+      border: 1px solid rgba(0, 255, 255, 0.35);
+      border-radius: 14px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.15);
+      backdrop-filter: blur(4px);
+      z-index: 95;
+    }
+
+    .folder-back-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: transparent;
+      border: 1px solid #0ff;
+      color: #0ff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 8px #0ff;
+      flex: 0 0 auto;
+      padding: 0;
+    }
+
+    .folder-back-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+      transition: transform 0.2s ease;
+    }
+
+    .folder-back-btn:disabled {
+      opacity: 0.35;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    .folder-location {
+      color: #0ff;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.82em;
+      text-align: left;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      letter-spacing: 1px;
+      margin-left: 2px;
+    }
+
+    .folder-button {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .folder-icon {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -55%);
+      font-size: 8em;
+      z-index: 3;
+      text-shadow: 0 0 10px #0ff;
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .empty-state {
+      width: 100%;
+      margin-top: 80px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1em;
+      color: #0ff;
+      opacity: 0.85;
+    }
+  </style>
 </head>
 
 <body>
-<div class="scanlines"></div>
+  <div class="scanlines"></div>
 
-<div class="sidebar">
-<h2>Blobe Games v2.19</h2>
+  <div class="sidebar">
+    <h2>Blobe Games v2.19</h2>
 
-<div class="search-container">
-    <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
-</div>
+    <div class="search-container">
+      <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
+    </div>
 
-<button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
-<button id="emulatedGamesBtn">🎮 Emulator Games</button>
-<button id="appsBtn">💻 Apps</button>
-<button id="moviesBtn">🍿 Movies</button>
-<button onclick="var w=window.open('about:blank');w.document.head.innerHTML='<title>Suggestion Form</title><link rel=\'icon\' href=\'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png\'>';w.document.body.innerHTML='<iframe src=&quot;https://forms.gle/FcPi2sCWTYPs49R57&quot; style=&quot;position:fixed;top:0;left:0;width:100%;height:100%;border:0;&quot;></iframe>';">💡 Suggestions</button>
-<button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
-</div>
+    <button id="jsGamesBtn" class="selected">🌐 HTML Games</button>
+    <button id="emulatedGamesBtn">🎮 Emulator Games</button>
+    <button id="appsBtn">💻 Apps</button>
+    <button id="moviesBtn">🍿 Movies</button>
+    <button onclick="var w=window.open('about:blank');w.document.head.innerHTML='<title>Suggestion Form</title><link rel=\'icon\' href=\'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png\'>';w.document.body.innerHTML='<iframe src=&quot;https://forms.gle/FcPi2sCWTYPs49R57&quot; style=&quot;position:fixed;top:0;left:0;width:100%;height:100%;border:0;&quot;></iframe>';">💡 Suggestions</button>
+    <button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
+  </div>
 
-<div class="game-container" id="gameContainer"></div>
+  <div class="game-container" id="gameContainer"></div>
 
-<script>
-const jsGames = [
-  { name: "Run 3", owner: "ioB-ybbolB", repo: "Run-3", base: "jsdelivr" },
-  { name: "Cat Mario", owner: "ioB-ybbolB", repo: "Cat-Mario", base: "jsdelivr" },
-  { name: "Snow Rider 3D", owner: "ioB-ybbolB", repo: "snow-rider-3d", base: "jsdelivr" },
-  { name: "Idle Breakout", owner: "ioB-ybbolB", repo: "Idle-Breakout", base: "jsdelivr" },
-  { name: "Slope", owner: "ioB-ybbolB", repo: "Slope", base: "jsdelivr" },
-  { name: "Slope 2", owner: "ioB-ybbolB", repo: "Slope-2", base: "jsdelivr" },
-  { name: "BitLife", owner: "ioB-ybbolB", repo: "BitLife", base: "jsdelivr" },
-  { name: "Paper.io 2", owner: "ioB-ybbolB", repo: "Paper-io-2", base: "jsdelivr" },
-  { name: "Minecraft (Resent)", owner: "ioB-ybbolB", repo: "resent", base: "jsdelivr" },
-  { name: "Gunspin", owner: "ioB-ybbolB", repo: "gunspin", base: "jsdelivr" },
-  { name: "Getaway Shootout", owner: "ioB-ybbolB", repo: "getaway-shootout", base: "jsdelivr" },
-  { name: "Rooftop Snipers", owner: "ioB-ybbolB", repo: "rooftop-snipers", base: "jsdelivr" },
-  { name: "Baldi's Basics", owner: "ioB-ybbolB", repo: "baldi", base: "jsdelivr" },
-  { name: "Drive Mad", owner: "ioB-ybbolB", repo: "drive-mad", base: "jsdelivr" },
-  { name: "Cluster Rush", owner: "ioB-ybbolB", repo: "cluster-rush", base: "jsdelivr" },
-  { name: "Core Ball", owner: "ioB-ybbolB", repo: "core-ball", base: "jsdelivr" },
-  { name: "Idle Dice", owner: "ioB-ybbolB", repo: "idle-dice", base: "jsdelivr" },
-  { name: "Tomb of the Mask", owner: "ioB-ybbolB", repo: "totm", base: "jsdelivr" },
-  { name: "Subway Surfers", owner: "ioB-ybbolB", repo: "subway-surfers", base: "jsdelivr" },
-  { name: "Fireboy and Watergirl", owner: "ioB-ybbolB", repo: "fbwg", base: "jsdelivr" },
-  { name: "Worlds Hardest Game", owner: "ioB-ybbolB", repo: "worlds-hardest-game", base: "jsdelivr" },
-  { name: "Worlds Hardest Game 2", owner: "ioB-ybbolB", repo: "worlds-hardest-game-2", base: "jsdelivr" },
-  { name: "The Impossible Quiz", owner: "ioB-ybbolB", repo: "impossible-quiz", base: "jsdelivr" },
-  { name: "Duck Life", owner: "ioB-ybbolB", repo: "duck-life", base: "jsdelivr" },
-  { name: "Duck Life 2", owner: "ioB-ybbolB", repo: "duck-life-2", base: "jsdelivr" },
-  { name: "Duck Life 3", owner: "ioB-ybbolB", repo: "duck-life-3", base: "jsdelivr" },
-  { name: "Duck Life 4", owner: "ioB-ybbolB", repo: "duck-life-4", base: "jsdelivr" },
-  { name: "Duck Life 5", owner: "ioB-ybbolB", repo: "duck-life-5", base: "jsdelivr" },
-  { name: "Duck Life 6", owner: "ioB-ybbolB", repo: "duck-life-6", base: "jsdelivr" },
-  { name: "Duck Life 7", owner: "ioB-ybbolB", repo: "duck-life-7", base: "jsdelivr" },
-  { name: "Learn to Fly", owner: "ioB-ybbolB", repo: "learn-to-fly", base: "jsdelivr" },
-  { name: "Learn to Fly 2", owner: "ioB-ybbolB", repo: "learn-to-fly-2", base: "jsdelivr" },
-  { name: "Bloxorz", owner: "ioB-ybbolB", repo: "bloxorz", base: "jsdelivr" },
-  { name: "Riddle School", owner: "ioB-ybbolB", repo: "riddle-school", base: "jsdelivr" },
-  { name: "Bloons (Original)", owner: "ioB-ybbolB", repo: "bloons", base: "jsdelivr" },
-  { name: "Bloons Tower Defense 5", owner: "ioB-ybbolB", repo: "bloons-td-5", base: "jsdelivr" },
-  { name: "Hollow Knight", owner: "ioB-ybbolB", repo: "hollow-knight", base: "jsdelivr" },
-  { name: "N-Gon", owner: "ioB-ybbolB", repo: "n-gon", base: "jsdelivr" },
-  { name: "Celeste", owner: "ioB-ybbolB", repo: "celeste", base: "jsdelivr" },
-  { name: "Drift Boss", owner: "ioB-ybbolB", repo: "drift-boss", base: "jsdelivr" },
-  { name: "Geometry Lite", owner: "ioB-ybbolB", repo: "geometrydash-lite", base: "jsdelivr" },
-  { name: "Retro Bowl", owner: "ioB-ybbolB", repo: "retro-bowl", base: "jsdelivr" },
-  { name: "Poly Track", owner: "ioB-ybbolB", repo: "poly-track", base: "jsdelivr" },
-  { name: "Monkey Mart", owner: "ioB-ybbolB", repo: "monkey-mart", base: "jsdelivr" },
-  { name: "Angry Birds", owner: "ioB-ybbolB", repo: "angry-birds", base: "jsdelivr" },
-  { name: "Crazy Cattle 3D", owner: "ioB-ybbolB", repo: "crazy-cattle-3d", base: "jsdelivr" },
-  { name: "Tag", owner: "ioB-ybbolB", repo: "Tag", base: "jsdelivr" },
-  { name: "Vex 7", owner: "ioB-ybbolB", repo: "vex7", base: "jsdelivr" },
-  { name: "Vex 8", owner: "ioB-ybbolB", repo: "vex8", base: "jsdelivr" },
-  { name: "Temple Run 2", owner: "ioB-ybbolB", repo: "temple-run-2", base: "jsdelivr" },
-  { name: "Cookie Clicker", owner: "ioB-ybbolB", repo: "Cookie-Clicker", base: "jsdelivr" },
-  { name: "Chrome Dino", owner: "ioB-ybbolB", repo: "chrome-dino", base: "jsdelivr" },
-  { name: "Flappy Bird", owner: "ioB-ybbolB", repo: "flappy-bird", base: "jsdelivr" },
-  { name: "Stickman Hook", owner: "ioB-ybbolB", repo: "Stickman-Hook", base: "jsdelivr" },
-  { name: "Fruit Ninja", owner: "ioB-ybbolB", repo: "fruit-ninja", base: "jsdelivr" },
-  { name: "Jetpack Joyride", owner: "ioB-ybbolB", repo: "jetpack-joyride", base: "jsdelivr" },
-  { name: "Time Shooter 2", owner: "ioB-ybbolB", repo: "Time-Shooter-2", base: "jsdelivr" },
-  { name: "Time Shooter 3", owner: "ioB-ybbolB", repo: "Time-Shooter-3", base: "jsdelivr" },
-  { name: "Granny", owner: "ioB-ybbolB", repo: "granny", base: "jsdelivr" },
-  { name: "Color Switch 2", owner: "ioB-ybbolB", repo: "color-switch-2-challenges", base: "jsdelivr" },
-  { name: "Basket Random", owner: "ioB-ybbolB", repo: "Basket-Random", base: "jsdelivr" },
-  { name: "5 Nights at Epstein's", owner: "ioB-ybbolB", repo: "5-nights-at-epsteins", base: "jsdelivr" },
-  { name: "Deltarune", owner: "ioB-ybbolB", repo: "deltarune", base: "jsdelivr" },
-  { name: "Storm the House", owner: "ioB-ybbolB", repo: "storm-the-house", base: "jsdelivr" },
-  { name: "Choppy Orc", owner: "ioB-ybbolB", repo: "choppy-orc", base: "jsdelivr" },
-  { name: "Kiwi Clicker", owner: "ioB-ybbolB", repo: "kiwi-clicker", base: "jsdelivr" },
-  { name: "MotoX3M", owner: "ioB-ybbolB", repo: "motox3m", base: "jsdelivr" },
-  { name: "Smash Karts", owner: "ioB-ybbolB", repo: "Smash-Karts", base: "jsdelivr" },
-  { name: "FNAF 2", owner: "ioB-ybbolB", repo: "fnaf-2", base: "jsdelivr" },
-  { name: "Gun Mayhem", owner: "ioB-ybbolB", repo: "gun-mayhem", base: "jsdelivr" },
-  { name: "Gun Mayhem 2", owner: "ioB-ybbolB", repo: "gun-mayhem-2", base: "jsdelivr" },
-  { name: "Stick War: Legacy", owner: "ioB-ybbolB", repo: "stick-war", base: "jsdelivr" },
-  { name: "Plants vs. Zombies", owner: "ioB-ybbolB", repo: "plants-vs-zombies", base: "jsdelivr" },
-  { name: "Basketball Stars", owner: "ioB-ybbolB", repo: "basketball-stars", base: "jsdelivr" },
-  { name: "Friday Night Funkin'", owner: "ioB-ybbolB", repo: "Friday-Night-Funkin", base: "jsdelivr" },
-  { name: "Ages of Conflict", owner: "ioB-ybbolB", repo: "ages-of-conflict", base: "jsdelivr" },
-  { name: "Crossy Road", owner: "ioB-ybbolB", repo: "crossy-road", base: "jsdelivr" },
-  { name: "Block Blast", owner: "ioB-ybbolB", repo: "block-blast", base: "jsdelivr" },
-  { name: "Stephen Hawking Sim.", owner: "ioB-ybbolB", repo: "stephen-hawking", base: "jsdelivr" },
-  { name: "Super Liquid Soccer", owner: "ioB-ybbolB", repo: "super-liquid-soccer", base: "jsdelivr" },
-  { name: "Football Legends", owner: "ioB-ybbolB", repo: "football-legends", base: "jsdelivr" },
-  { name: "DDLC", owner: "ioB-ybbolB", repo: "ddlc", base: "jsdelivr" },
-  { name: "Sleepy Knight", owner: "ioB-ybbolB", repo: "sleepy-knight", base: "jsdelivr" },
-  { name: "Greedy Mimic", owner: "ioB-ybbolB", repo: "greedy-mimic", base: "jsdelivr" },
-  { name: "Dialed.gg", owner: "ioB-ybbolB", repo: "dialed-gg", base: "jsdelivr" },
-  { name: "Web Dash", owner: "web-dashers", repo: "web-dashers.github.io", base: "jsdelivr" },
-  { name: "FNF vs. AmongUs V4", owner: "ioB-ybbolB", repo: "fnf-impostor", base: "jsdelivr" },
-  { name: "Soccer Random", owner: "ioB-ybbolB", repo: "Soccer-Random", base: "jsdelivr" },
-  { name: "Unicycle Hero", owner: "ioB-ybbolB", repo: "unicycle-hero", base: "jsdelivr" },
-  { name: "Homer Saw Game", owner: "ioB-ybbolB", repo: "homer-saw-game", base: "jsdelivr" },
-  { name: "Boxing Random", owner: "ioB-ybbolB", repo: "Boxing-Random", base: "jsdelivr" },
-  { name: "Retro Bowl College", owner: "ioB-ybbolB", repo: "retro-bowl-college", base: "jsdelivr" },
-  { name: "Poor Bunny", owner: "ioB-ybbolB", repo: "PoorBunny", base: "jsdelivr" },
-  { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io", base: "jsdelivr" }, // from here on out i lwk give up forking everything
-  { name: "Capybara Clicker", owner: "bubbls", repo: "UGS-Assets", base: "jsdelivr", path: "capybara clicker" },
-  { name: "Learn to Fly 3", owner: "ioB-ybbolB", repo: "learn-to-fly-3", base: "jsdelivr" },
-  { name: "Infinite Craft", owner: "ioB-ybbolB", repo: "nova-craft", base: "jsdelivr" },
-  { name: "There is No Game", owner: "ioB-ybbolB", repo: "there-is-no-game", base: "jsdelivr" },
-];
+  <div class="folder-footer">
+    <button id="folderBackBtn" class="folder-back-btn" aria-label="Go back">
+      <svg viewBox="0 0 24 24">
+        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.41z"/>
+      </svg>
+    </button>
+    <div class="folder-location" id="folderLocation">root / HTML Games</div>
+  </div>
 
-const emulatedGames = [
-  { name: "Super Mario Bros", owner: "ioB-ybbolB", repo: "Mario", base: "jsdelivr" },
-  { name: "Super Mario Bros 3", owner: "ioB-ybbolB", repo: "Mario3", base: "jsdelivr" },
-  { name: "Super Mario World", owner: "ioB-ybbolB", repo: "MarioWorld", base: "jsdelivr" },
-  { name: "Super Mario 64", owner: "ioB-ybbolB", repo: "mario-64", base: "jsdelivr" },
-  { name: "New Super Mario Bros", owner: "ioB-ybbolB", repo: "new-mario", base: "jsdelivr" },
-  { name: "Pokemon Ruby", owner: "ioB-ybbolB", repo: "pokemon-ruby", base: "jsdelivr" },
-  { name: "Pokemon Sapphire", owner: "ioB-ybbolB", repo: "pokemon-sapphire", base: "jsdelivr" },
-  { name: "Pokemon Emerald", owner: "ioB-ybbolB", repo: "pokemon-emerald", base: "jsdelivr" },
-  { name: "Pokemon Platinum", owner: "ioB-ybbolB", repo: "pokemon-platinum", base: "jsdelivr" },
-  { name: "Pokemon Radical Red", owner: "ioB-ybbolB", repo: "pokemon-radical-red", base: "jsdelivr" },
-];
+  <script>
+    const itemsDB = [
+      {
+        type: "folder",
+        name: "HTML Games",
+        children: [
+          { name: "Run 3", owner: "ioB-ybbolB", repo: "Run-3" },
+          { name: "Cat Mario", owner: "ioB-ybbolB", repo: "Cat-Mario" },
+          { name: "Snow Rider 3D", owner: "ioB-ybbolB", repo: "snow-rider-3d" },
+          { name: "Idle Breakout", owner: "ioB-ybbolB", repo: "Idle-Breakout" },
+          {
+            type: "folder",
+            name: "Slope",
+            children: [
+              { name: "Slope", owner: "ioB-ybbolB", repo: "Slope" },
+              { name: "Slope 2", owner: "ioB-ybbolB", repo: "Slope-2" },
+            ]
+          },
+          { name: "BitLife", owner: "ioB-ybbolB", repo: "BitLife" },
+          { name: "Paper.io 2", owner: "ioB-ybbolB", repo: "Paper-io-2" },
+          { name: "Minecraft (Resent)", owner: "ioB-ybbolB", repo: "resent" },
+          { name: "Gunspin", owner: "ioB-ybbolB", repo: "gunspin" },
+          { name: "Getaway Shootout", owner: "ioB-ybbolB", repo: "getaway-shootout" },
+          { name: "Rooftop Snipers", owner: "ioB-ybbolB", repo: "rooftop-snipers" },
+          { name: "Baldi's Basics", owner: "ioB-ybbolB", repo: "baldi" },
+          { name: "Drive Mad", owner: "ioB-ybbolB", repo: "drive-mad" },
+          { name: "Cluster Rush", owner: "ioB-ybbolB", repo: "cluster-rush" },
+          { name: "Core Ball", owner: "ioB-ybbolB", repo: "core-ball" },
+          { name: "Idle Dice", owner: "ioB-ybbolB", repo: "idle-dice" },
+          { name: "Tomb of the Mask", owner: "ioB-ybbolB", repo: "totm" },
+          { name: "Subway Surfers", owner: "ioB-ybbolB", repo: "subway-surfers" },
+          { name: "Fireboy and Watergirl", owner: "ioB-ybbolB", repo: "fbwg" },
+          { name: "Worlds Hardest Game", owner: "ioB-ybbolB", repo: "worlds-hardest-game" },
+          { name: "Worlds Hardest Game 2", owner: "ioB-ybbolB", repo: "worlds-hardest-game-2" },
+          { name: "The Impossible Quiz", owner: "ioB-ybbolB", repo: "impossible-quiz" },
+          {
+            type: "folder",
+            name: "Duck Life",
+            children: [
+              { name: "Duck Life", owner: "ioB-ybbolB", repo: "duck-life" },
+              { name: "Duck Life 2", owner: "ioB-ybbolB", repo: "duck-life-2" },
+              { name: "Duck Life 3", owner: "ioB-ybbolB", repo: "duck-life-3" },
+              { name: "Duck Life 4", owner: "ioB-ybbolB", repo: "duck-life-4" },
+              { name: "Duck Life 5", owner: "ioB-ybbolB", repo: "duck-life-5" },
+              { name: "Duck Life 6", owner: "ioB-ybbolB", repo: "duck-life-6" },
+              { name: "Duck Life 7", owner: "ioB-ybbolB", repo: "duck-life-7" },
+            ]
+          },
+          {
+            type: "folder",
+            name: "Learn to Fly",
+            children: [
+              { name: "Learn to Fly", owner: "ioB-ybbolB", repo: "learn-to-fly" },
+              { name: "Learn to Fly 2", owner: "ioB-ybbolB", repo: "learn-to-fly-2" },
+              { name: "Learn to Fly 3", owner: "ioB-ybbolB", repo: "learn-to-fly-3" },
+            ]
+          },
+          { name: "Bloxorz", owner: "ioB-ybbolB", repo: "bloxorz" },
+          { name: "Riddle School", owner: "ioB-ybbolB", repo: "riddle-school" },
+          { name: "Bloons (Original)", owner: "ioB-ybbolB", repo: "bloons" },
+          { name: "Bloons Tower Defense 5", owner: "ioB-ybbolB", repo: "bloons-td-5" },
+          { name: "Hollow Knight", owner: "ioB-ybbolB", repo: "hollow-knight" },
+          { name: "N-Gon", owner: "ioB-ybbolB", repo: "n-gon" },
+          { name: "Celeste", owner: "ioB-ybbolB", repo: "celeste" },
+          { name: "Drift Boss", owner: "ioB-ybbolB", repo: "drift-boss" },
+          {
+            type: "folder",
+            name: "Geometry Dash",
+            children: [
+              { name: "Geometry Lite", owner: "ioB-ybbolB", repo: "geometrydash-lite" },
+              { name: "Web Dash", owner: "web-dashers", repo: "web-dashers.github.io" },
+            ]
+          },
+          {
+            type: "folder",
+            name: "Retro Bowl",
+            children: [
+              { name: "Retro Bowl", owner: "ioB-ybbolB", repo: "retro-bowl" },
+              { name: "Retro Bowl College", owner: "ioB-ybbolB", repo: "retro-bowl-college" },
+            ]
+          },
+          { name: "Poly Track", owner: "ioB-ybbolB", repo: "poly-track" },
+          { name: "Monkey Mart", owner: "ioB-ybbolB", repo: "monkey-mart" },
+          { name: "Angry Birds", owner: "ioB-ybbolB", repo: "angry-birds" },
+          { name: "Crazy Cattle 3D", owner: "ioB-ybbolB", repo: "crazy-cattle-3d" },
+          { name: "Tag", owner: "ioB-ybbolB", repo: "Tag" },
+          {
+            type: "folder",
+            name: "Vex",
+            children: [
+              { name: "Vex 7", owner: "ioB-ybbolB", repo: "vex7" },
+              { name: "Vex 8", owner: "ioB-ybbolB", repo: "vex8" },
+            ]
+          },
+          { name: "Temple Run 2", owner: "ioB-ybbolB", repo: "temple-run-2" },
+          { name: "Cookie Clicker", owner: "ioB-ybbolB", repo: "Cookie-Clicker" },
+          { name: "Chrome Dino", owner: "ioB-ybbolB", repo: "chrome-dino" },
+          { name: "Flappy Bird", owner: "ioB-ybbolB", repo: "flappy-bird" },
+          { name: "Stickman Hook", owner: "ioB-ybbolB", repo: "Stickman-Hook" },
+          { name: "Fruit Ninja", owner: "ioB-ybbolB", repo: "fruit-ninja" },
+          { name: "Jetpack Joyride", owner: "ioB-ybbolB", repo: "jetpack-joyride" },
+          {
+            type: "folder",
+            name: "Time Shooter",
+            children: [
+              { name: "Time Shooter 2", owner: "ioB-ybbolB", repo: "Time-Shooter-2" },
+              { name: "Time Shooter 3", owner: "ioB-ybbolB", repo: "Time-Shooter-3" },
+            ]
+          },
+          { name: "Granny", owner: "ioB-ybbolB", repo: "granny" },
+          { name: "Color Switch 2", owner: "ioB-ybbolB", repo: "color-switch-2-challenges" },
+          {
+            type: "folder",
+            name: "Sports Random",
+            children: [
+              { name: "Basket Random", owner: "ioB-ybbolB", repo: "Basket-Random" },
+              { name: "Soccer Random", owner: "ioB-ybbolB", repo: "Soccer-Random" },
+              { name: "Boxing Random", owner: "ioB-ybbolB", repo: "Boxing-Random" },
+            ]
+          },
+          { name: "5 Nights at Epstein's", owner: "ioB-ybbolB", repo: "5-nights-at-epsteins" },
+          { name: "Deltarune", owner: "ioB-ybbolB", repo: "deltarune" },
+          { name: "Storm the House", owner: "ioB-ybbolB", repo: "storm-the-house" },
+          { name: "Choppy Orc", owner: "ioB-ybbolB", repo: "choppy-orc" },
+          { name: "Kiwi Clicker", owner: "ioB-ybbolB", repo: "kiwi-clicker" },
+          { name: "MotoX3M", owner: "ioB-ybbolB", repo: "motox3m" },
+          { name: "Smash Karts", owner: "ioB-ybbolB", repo: "Smash-Karts" },
+          { name: "FNAF 2", owner: "ioB-ybbolB", repo: "fnaf-2" },
+          {
+            type: "folder",
+            name: "Gun Mayhem",
+            children: [
+              { name: "Gun Mayhem", owner: "ioB-ybbolB", repo: "gun-mayhem" },
+              { name: "Gun Mayhem 2", owner: "ioB-ybbolB", repo: "gun-mayhem-2" },
+            ]
+          },
+          { name: "Stick War: Legacy", owner: "ioB-ybbolB", repo: "stick-war" },
+          { name: "Plants vs. Zombies", owner: "ioB-ybbolB", repo: "plants-vs-zombies" },
+          { name: "Basketball Stars", owner: "ioB-ybbolB", repo: "basketball-stars" },
+          {
+            type: "folder",
+            name: "Friday Night Funkin'",
+            children: [
+              { name: "Friday Night Funkin'", owner: "ioB-ybbolB", repo: "Friday-Night-Funkin" },
+              { name: "FNF vs. AmongUs V4", owner: "ioB-ybbolB", repo: "fnf-impostor" },
+            ]
+          },
+          { name: "Ages of Conflict", owner: "ioB-ybbolB", repo: "ages-of-conflict" },
+          { name: "Crossy Road", owner: "ioB-ybbolB", repo: "crossy-road" },
+          { name: "Block Blast", owner: "ioB-ybbolB", repo: "block-blast" },
+          { name: "Stephen Hawking Sim.", owner: "ioB-ybbolB", repo: "stephen-hawking" },
+          { name: "Super Liquid Soccer", owner: "ioB-ybbolB", repo: "super-liquid-soccer" },
+          { name: "Football Legends", owner: "ioB-ybbolB", repo: "football-legends" },
+          { name: "DDLC", owner: "ioB-ybbolB", repo: "ddlc" },
+          { name: "Sleepy Knight", owner: "ioB-ybbolB", repo: "sleepy-knight" },
+          { name: "Greedy Mimic", owner: "ioB-ybbolB", repo: "greedy-mimic" },
+          { name: "Dialed.gg", owner: "ioB-ybbolB", repo: "dialed-gg" },
+          { name: "Unicycle Hero", owner: "ioB-ybbolB", repo: "unicycle-hero" },
+          { name: "Homer Saw Game", owner: "ioB-ybbolB", repo: "homer-saw-game" },
+          { name: "Poor Bunny", owner: "ioB-ybbolB", repo: "PoorBunny" },
+          { name: "5 Nights with Rice", owner: "Murturtle", repo: "murturtle.github.io" },
+          { name: "Capybara Clicker", owner: "bubbls", repo: "UGS-Assets", path: "capybara clicker" },
+          { name: "Infinite Craft", owner: "ioB-ybbolB", repo: "nova-craft" },
+          { name: "There is No Game", owner: "ioB-ybbolB", repo: "there-is-no-game" }
+        ]
+      },
+      {
+        type: "folder",
+        name: "Emulator Games",
+        children: [
+          {
+            type: "folder",
+            name: "Super Mario",
+            children: [
+              { name: "Super Mario Bros", owner: "ioB-ybbolB", repo: "Mario" },
+              { name: "Super Mario Bros 3", owner: "ioB-ybbolB", repo: "Mario3" },
+              { name: "Super Mario World", owner: "ioB-ybbolB", repo: "MarioWorld" },
+              { name: "Super Mario 64", owner: "ioB-ybbolB", repo: "mario-64" },
+              { name: "New Super Mario Bros", owner: "ioB-ybbolB", repo: "new-mario" },
+            ]
+          },
+          {
+            type: "folder",
+            name: "Pokemon",
+            children: [
+              { name: "Pokemon Ruby", owner: "ioB-ybbolB", repo: "pokemon-ruby" },
+              { name: "Pokemon Sapphire", owner: "ioB-ybbolB", repo: "pokemon-sapphire" },
+              { name: "Pokemon Emerald", owner: "ioB-ybbolB", repo: "pokemon-emerald" },
+              { name: "Pokemon Platinum", owner: "ioB-ybbolB", repo: "pokemon-platinum" },
+              { name: "Pokemon Radical Red", owner: "ioB-ybbolB", repo: "pokemon-radical-red" }
+            ]
+          },
+        ]
+      },
+      {
+        type: "folder",
+        name: "Apps",
+        children: [
+          { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer" },
+          { name: "BlobeGPT", owner: "ioB-ybbolB", repo: "blobeGPT" },
+          { name: "jerkmate", owner: "ioB-ybbolB", repo: "jrk-mt" }
+        ]
+      },
+      {
+        type: "folder",
+        name: "Movies",
+        children: [
+          { name: "Turkish Star Wars", owner: "ioB-ybbolB", repo: "turkish-star-wars" },
+          { name: "The Backrooms", owner: "ioB-ybbolB", repo: "backrooms" }
+        ]
+      }
+    ];
 
-const apps = [
-  { name: "ExtPrint3r", owner: "ioB-ybbolB", repo: "printer", base: "jsdelivr" },
-  { name: "BlobeGPT", owner: "ioB-ybbolB", repo: "blobeGPT", base: "jsdelivr" },
-  { name: "jerkmate", owner: "ioB-ybbolB", repo: "jrk-mt", base: "jsdelivr" },
-];
+    const GAME_IMAGE_FALLBACK = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png";
 
-const movies = [
-  { name: "Turkish Star Wars", owner: "ioB-ybbolB", repo: "turkish-star-wars", base: "jsdelivr" },
-  { name: "The Backrooms", owner: "ioB-ybbolB", repo: "backrooms", base: "jsdelivr" },
-];
+    function normalizeNode(item) {
+      if (item.type === "folder") {
+        return {
+          ...item,
+          children: (item.children || []).map(normalizeNode)
+        };
+      }
+      return { type: "game", base: "jsdelivr", ...item };
+    }
 
-let currentGames = jsGames;
+    const rootNode = { 
+      type: "folder", 
+      name: "root", 
+      children: itemsDB.map(normalizeNode) 
+    };
 
-function filterGames() {
-    const query = document.getElementById('gameSearch').value.toLowerCase();
-    const filtered = currentGames.filter(game => game.name.toLowerCase().includes(query));
-    renderGames(filtered);
-}
+    let activeCategoryName = "HTML Games";
+    let currentFolder = rootNode.children.find(f => f.name === activeCategoryName) || rootNode;
+    let currentPath = [rootNode, currentFolder];
 
-function showJavaScriptGames() {
-  currentGames = jsGames;
-  document.getElementById('gameSearch').value = '';
-  renderGames(jsGames);
-}
+    async function resolveGameImage(game) {
+      const base = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
+      const targetName = game.path ? game.path : game.repo;
+      const candidates = [
+        `${base}${targetName}.png`,
+        `${base}${targetName}.webp`,
+        `${base}${targetName}.jpg`
+      ];
+      return new Promise(resolve => {
+        const img = new Image();
+        let i = 0;
+        const tryNext = () => {
+          if (i >= candidates.length) {
+            resolve(null);
+            return;
+          }
+          img.src = candidates[i++];
+        };
+        img.onload = () => resolve(img.src);
+        img.onerror = tryNext;
+        tryNext();
+      });
+    }
 
-function showEmulatedGames() {
-  currentGames = emulatedGames;
-  document.getElementById('gameSearch').value = '';
-  renderGames(emulatedGames);
-}
+    function isFolder(node) {
+      return !!node && node.type === "folder";
+    }
 
-function showApps() {
-  currentGames = apps;
-  document.getElementById('gameSearch').value = '';
-  renderGames(apps);
-}
+    function isGame(node) {
+      return !!node && node.type === "game";
+    }
 
-function showMovies() {
-  currentGames = movies;
-  document.getElementById('gameSearch').value = '';
-  renderGames(movies);
-}
+    function getCurrentSearchScope() {
+      return currentPath.length > 1 ? currentPath[1] : rootNode;
+    }
 
-function resolveGameImage(game){
-    const base="https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
-    const targetName = game.path ? game.path : game.repo;
-    const candidates=[`${base}${targetName}.png`,`${base}${targetName}.webp`,`${base}${targetName}.jpg`];
-    return new Promise(resolve=>{
-    const img=new Image();let i=0;
-    const tryNext=()=>{if(i>=candidates.length){resolve(null);return;}img.src=candidates[i++];};
-    img.onload=()=>resolve(img.src);
-    img.onerror=tryNext;
-    tryNext();
-    });
-}
+    function syncSidebarSelection() {
+      const map = {
+        "HTML Games": "jsGamesBtn",
+        "Emulator Games": "emulatedGamesBtn",
+        "Apps": "appsBtn",
+        "Movies": "moviesBtn"
+      };
 
-async function renderGames(games) {
-  const container = document.getElementById('gameContainer');
-  container.innerHTML = '';
+      document.querySelectorAll(".sidebar button").forEach(btn => btn.classList.remove("selected"));
+      if (activeCategoryName && map[activeCategoryName]) {
+        const selected = document.getElementById(map[activeCategoryName]);
+        if (selected) selected.classList.add("selected");
+      }
+    }
 
-  for (const game of games) {
-    const wrapper = document.createElement('div');
+    function getPathText() {
+      return currentPath.map(node => node.name).join(" / ");
+    }
 
-    const btn = document.createElement('button');
-    btn.className = 'rounded-button';
+    function updateFooter() {
+      const footer = document.getElementById("folderLocation");
+      const backBtn = document.getElementById("folderBackBtn");
+      if (footer) footer.textContent = getPathText();
+      if (backBtn) backBtn.disabled = currentPath.length <= 1;
+    }
 
-    resolveGameImage(game).then(url => {
-      if (url) {
-        btn.style.backgroundImage = `url('${url}')`;
+    function clearSearchBox() {
+      const input = document.getElementById("gameSearch");
+      if (input) input.value = "";
+    }
+
+    function showTopLevelFolder(name) {
+      const folder = rootNode.children.find(f => f.name === name);
+      if (!folder) return;
+      activeCategoryName = name;
+      currentFolder = folder;
+      currentPath = [rootNode, currentFolder];
+      syncSidebarSelection();
+      clearSearchBox();
+      renderCurrentView();
+    }
+
+    function enterFolder(folder) {
+      if (!isFolder(folder)) return;
+      if (currentPath[currentPath.length - 1] !== folder) {
+        currentPath.push(folder);
+      }
+      currentFolder = folder;
+
+      if (currentPath.length > 1) {
+        activeCategoryName = currentPath[1].name;
       } else {
-        btn.style.backgroundImage = "url('https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png')";
+        activeCategoryName = null;
+      }
+
+      syncSidebarSelection();
+      clearSearchBox();
+      renderCurrentView();
+    }
+
+    function goBack() {
+      if (currentPath.length <= 1) return;
+
+      currentPath.pop();
+      currentFolder = currentPath[currentPath.length - 1] || rootNode;
+
+      if (currentFolder === rootNode) {
+        activeCategoryName = null;
+      } else if (currentPath.length > 1) {
+        activeCategoryName = currentPath[1].name;
+      }
+
+      syncSidebarSelection();
+      clearSearchBox();
+      renderCurrentView();
+    }
+
+    function nodeText(node) {
+      return [node.name, node.owner, node.repo, node.path].filter(Boolean).join(" ").toLowerCase();
+    }
+
+    function collectMatches(node, query, results = []) {
+      if (node !== rootNode && isGame(node) && nodeText(node).includes(query)) {
+        results.push(node);
+      }
+      if (isFolder(node)) {
+        for (const child of (node.children || [])) {
+          collectMatches(child, query, results);
+        }
+      }
+      return results;
+    }
+
+    function getDescendantGames(node, results = []) {
+      if (isGame(node)) {
+        results.push(node);
+      } else if (isFolder(node)) {
+        for (const child of (node.children || [])) {
+          getDescendantGames(child, results);
+        }
+      }
+      return results;
+    }
+
+    async function applyFolderPreview(button, folder) {
+      const fallback = GAME_IMAGE_FALLBACK;
+      const previewGames = getDescendantGames(folder);
+      
+      const uniqueUrls = [];
+      for (const game of previewGames) {
+        try {
+          const url = await resolveGameImage(game);
+          const finalUrl = url || fallback;
+          if (!uniqueUrls.includes(finalUrl)) {
+            uniqueUrls.push(finalUrl);
+          }
+        } catch (e) {}
+        if (uniqueUrls.length >= 4) break;
+      }
+
+      if (uniqueUrls.length === 0) {
+        uniqueUrls.push(fallback);
+      }
+
+      let bgImages = ["linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42))"];
+      let bgSizes = ["cover"];
+      let bgPositions = ["center"];
+
+      uniqueUrls.forEach(url => bgImages.push(`url('${url}')`));
+
+      if (uniqueUrls.length === 1) {
+        bgSizes.push("100% 100%");
+        bgPositions.push("center");
+      } else if (uniqueUrls.length === 2) {
+        bgSizes.push("50% 100%", "50% 100%");
+        bgPositions.push("left center", "right center");
+      } else if (uniqueUrls.length === 3) {
+        bgSizes.push("50% 100%", "50% 50%", "50% 50%");
+        bgPositions.push("left center", "top right", "bottom right");
+      } else {
+        bgSizes.push("50% 50%", "50% 50%", "50% 50%", "50% 50%");
+        bgPositions.push("top left", "top right", "bottom left", "bottom right");
+      }
+
+      button.style.backgroundImage = bgImages.join(", ");
+      button.style.backgroundSize = bgSizes.join(", ");
+      button.style.backgroundPosition = bgPositions.join(", ");
+      button.style.backgroundRepeat = "no-repeat";
+    }
+
+    async function renderNodes(nodes) {
+      const container = document.getElementById("gameContainer");
+      container.innerHTML = "";
+
+      if (!nodes.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "No results found.";
+        container.appendChild(empty);
+        updateFooter();
+        return;
+      }
+
+      for (const node of nodes) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "card-wrapper";
+
+        const btn = document.createElement("button");
+        btn.className = "rounded-button" + (isFolder(node) ? " folder-button" : "");
+        btn.title = node.name;
+
+        if (isFolder(node)) {
+          const icon = document.createElement("div");
+          icon.className = "folder-icon";
+          icon.textContent = "📁";
+          btn.appendChild(icon);
+          applyFolderPreview(btn, node);
+          btn.onclick = () => enterFolder(node);
+        } else {
+          resolveGameImage(node).then(url => {
+            btn.style.backgroundImage = `url('${url || GAME_IMAGE_FALLBACK}')`;
+          });
+          btn.onclick = () => loadGame(node.owner, node.repo, node.name, node.base, node.path);
+        }
+
+        const label = document.createElement("div");
+        label.className = "button-text";
+        label.textContent = node.name;
+
+        wrapper.appendChild(btn);
+        wrapper.appendChild(label);
+        container.appendChild(wrapper);
+      }
+
+      updateFooter();
+    }
+
+    async function renderCurrentView() {
+      const query = document.getElementById("gameSearch").value.trim().toLowerCase();
+      if (query) {
+        const scope = getCurrentSearchScope();
+        const results = collectMatches(scope, query);
+        await renderNodes(results);
+      } else {
+        await renderNodes((currentFolder.children || []));
+      }
+    }
+
+    function filterGames() {
+      renderCurrentView();
+    }
+
+    document.getElementById("folderBackBtn").onclick = goBack;
+    document.getElementById("gameSearch").addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        clearSearchBox();
+        renderCurrentView();
       }
     });
 
-    btn.onclick = () =>
-      loadGame(game.owner, game.repo, game.name, game.base, game.path);
+    document.getElementById("jsGamesBtn").onclick = () => showTopLevelFolder("HTML Games");
+    document.getElementById("emulatedGamesBtn").onclick = () => showTopLevelFolder("Emulator Games");
+    document.getElementById("appsBtn").onclick = () => showTopLevelFolder("Apps");
+    document.getElementById("moviesBtn").onclick = () => showTopLevelFolder("Movies");
 
-    const label = document.createElement('div');
-    label.className = 'button-text';
-    label.textContent = game.name;
+    showTopLevelFolder("HTML Games");
+  </script>
 
-    wrapper.appendChild(btn);
-    wrapper.appendChild(label);
-    container.appendChild(wrapper);
-  }
-}
+  <script>
+    const BRANCHES = ["main", "gh-pages", "master", "latest"];
 
-document.getElementById('jsGamesBtn').onclick = function() {
-  this.classList.add('selected');
-  document.getElementById('emulatedGamesBtn').classList.remove('selected');
-  document.getElementById('appsBtn').classList.remove('selected');
-  document.getElementById('moviesBtn').classList.remove('selected');
-  showJavaScriptGames();
-};
+    async function resolveBranch(owner, repo, path = "") {
+      let subDir = path ? path.replace(/^\/+/, '').replace(/\/?$/, '/') : '';
 
-document.getElementById('emulatedGamesBtn').onclick = function() {
-  this.classList.add('selected');
-  document.getElementById('jsGamesBtn').classList.remove('selected');
-  document.getElementById('appsBtn').classList.remove('selected');
-  document.getElementById('moviesBtn').classList.remove('selected');
-  showEmulatedGames();
-};
-
-document.getElementById('appsBtn').onclick = function() {
-  this.classList.add('selected');
-  document.getElementById('jsGamesBtn').classList.remove('selected');
-  document.getElementById('emulatedGamesBtn').classList.remove('selected');
-  document.getElementById('moviesBtn').classList.remove('selected');
-  showApps();
-};
-
-document.getElementById('moviesBtn').onclick = function() {
-  this.classList.add('selected');
-  document.getElementById('jsGamesBtn').classList.remove('selected');
-  document.getElementById('emulatedGamesBtn').classList.remove('selected');
-  document.getElementById('appsBtn').classList.remove('selected');
-  showMovies();
-};
-
-showJavaScriptGames();
-</script>
-<script>
-
-const BRANCHES = ["main", "gh-pages", "master", "latest"];
-
-async function resolveBranch(owner, repo, path = "") {
-  let subDir = path ? path.replace(/^\/+/, '').replace(/\/?$/, '/') : '';
-
-  for (const b of BRANCHES) {
-    const test = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${b}/${subDir}index.html`;
-    try {
-      const r = await fetch(test, { method: "HEAD" });
-      if (r.ok) return b;
-    } catch (e) {}
-  }
-  return "latest2";
-}
-
-async function getLatestCommit(owner, repo, path = "") {
-  try {
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`);
-    if (!response.ok) {
-      throw new Error(`Failed to fetch commit for ${owner}/${repo}`);
+      for (const b of BRANCHES) {
+        const test = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${b}/${subDir}index.html`;
+        try {
+          const r = await fetch(test, { method: "HEAD" });
+          if (r.ok) return b;
+        } catch (e) {}
+      }
+      return "latest2";
     }
-    const data = await response.json();
-    return data[0].sha;
-  } catch (error) {
-    console.warn("GitHub API error:", error);
-    return await resolveBranch(owner, repo, path);
-  }
-}
 
-function rewriteLargeAssets(html, owner, repo, ref) {
-  return html.replace(/(src|href)=["']([^"']+?\.(wasm|data|unityweb))["']/gi,
-  (m, a, path) => {
-    if(/https?:/i.test(path))return m;
-    const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/` + path.replace(/^\/+/, "");
-    return `${a}="${raw}"`;
-  });
-}
+    async function getLatestCommit(owner, repo, path = "") {
+      try {
+        const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/commits?per_page=1`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch commit for ${owner}/${repo}`);
+        }
+        const data = await response.json();
+        return data[0].sha;
+      } catch (error) {
+        console.warn("GitHub API error:", error);
+        return await resolveBranch(owner, repo, path);
+      }
+    }
 
-function rewriteNavigation(html){
-html=html.replace(/<a([^>]*?)href=["']([^"']+)["']([^>]*)>/gi,
-(m,a,href,b)=>{
-if(/^(https?:|#|mailto)/i.test(href))return m;
-return `<a${a}href="#" onclick="__navigate('${href}');return false;"${b}>`;
-});
-html=html.replace(/window\.location\.href\s*=\s*["']([^"']+)["']/gi,
-(m,url)=>`__navigate('${url}')`);
-html=html.replace(/location\.href\s*=\s*["']([^"']+)["']/gi,
-(m,url)=>`__navigate('${url}')`);
-return html;
-}
+    function rewriteLargeAssets(html, owner, repo, ref) {
+      return html.replace(/(src|href)=["']([^"']+?\.(wasm|data|unityweb))["']/gi,
+      (m, a, path) => {
+        if(/https?:/i.test(path)) return m;
+        const raw = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/` + path.replace(/^\/+/, "");
+        return `${a}="${raw}"`;
+      });
+    }
 
-function injectCore(html, base, gameName) {
-    html = rewriteNavigation(html);
-    html = html.replace(/^\s*<!DOCTYPE[^>]*>/i, '');
+    function rewriteNavigation(html) {
+      html = html.replace(/<a([^>]*?)href=["']([^"']+)["']([^>]*)>/gi,
+      (m, a, href, b) => {
+        if(/^(https?:|#|mailto)/i.test(href)) return m;
+        return `<a${a}href="#" onclick="__navigate('${href}');return false;"${b}>`;
+      });
+      html = html.replace(/window\.location\.href\s*=\s*["']([^"']+)["']/gi,
+      (m, url) => `__navigate('${url}')`);
+      html = html.replace(/location\.href\s*=\s*["']([^"']+)["']/gi,
+      (m, url) => `__navigate('${url}')`);
+      return html;
+    }
 
-    const hasBase = /<base\s+href=/i.test(html);
-    
-    const core = `${hasBase ? '' : `<base href="${base}">`}
+    function injectCore(html, base, gameName) {
+      html = rewriteNavigation(html);
+      html = html.replace(/^\s*<!DOCTYPE[^>]*>/i, '');
+
+      const hasBase = /<base\s+href=/i.test(html);
+      
+      const core = `${hasBase ? '' : `<base href="${base}">`}
 <title>${gameName}</title>
 <script>
 function __navigate(p){
@@ -428,13 +860,13 @@ function __navigate(p){
 }
 <\/script>`;
 
-    if (/<head/i.test(html)) {
+      if (/<head/i.test(html)) {
         html = html.replace(/<head[^>]*>/i, m => m + '\n' + core);
         return '<!DOCTYPE html>\n' + html.trim();
-    } else if (/<html/i.test(html)) {
+      } else if (/<html/i.test(html)) {
         html = html.replace(/<html[^>]*>/i, m => m + '\n' + core);
         return '<!DOCTYPE html>\n' + html.trim();
-    } else {
+      } else {
         return `<!DOCTYPE html>
 <html>
 <head>
@@ -444,114 +876,112 @@ ${core}
 ${html.trim()}
 </body>
 </html>`;
+      }
     }
-}
 
-async function __dynamicFetch(tab, url, gameName) {
-    const res = await fetch(url);
-    let html = await res.text();
-    const base = url.substring(0, url.lastIndexOf("/") + 1);
-    
-    html = injectCore(html, base, gameName); 
-    
-    tab.document.open();
-    tab.document.write(html);
-    tab.document.close();
-}
+    async function __dynamicFetch(tab, url, gameName) {
+      const res = await fetch(url);
+      let html = await res.text();
+      const base = url.substring(0, url.lastIndexOf("/") + 1);
+      
+      html = injectCore(html, base, gameName); 
+      
+      tab.document.open();
+      tab.document.write(html);
+      tab.document.close();
+    }
 
-async function loadGame(owner, repo, name, baseProvider = "jsdelivr", path = "") {
-  const tab = window.open("about:blank", "_blank");
-  if (!tab) return;
-  const icon = tab.document.createElement("link");
-  icon.rel = "icon";
-  icon.href = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/main/favicon.png";
-  tab.document.head.appendChild(icon);
+    async function loadGame(owner, repo, name, baseProvider = "jsdelivr", path = "") {
+      const tab = window.open("about:blank", "_blank");
+      if (!tab) return;
+      const icon = tab.document.createElement("link");
+      icon.rel = "icon";
+      icon.href = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/main/favicon.png";
+      tab.document.head.appendChild(icon);
 
-  tab.document.write(`
-    <!DOCTYPE html>
-    <html>
-      <head>
-        <title>Loading ${name}...</title>
-        <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
-        <style>
-          body {
-            margin: 0;
-            background: radial-gradient(circle at center, #000010, #000);
-            color: #0ff;
-            font-family: 'Orbitron', sans-serif;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-          }
-          
-          .spinner {
-            width: 60px;
-            height: 60px;
-            border: 6px solid rgba(0, 255, 255, 0.1);
-            border-top: 6px solid #0ff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 25px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
-          }
+      tab.document.write(`
+        <!DOCTYPE html>
+        <html>
+          <head>
+            <title>Loading ${name}...</title>
+            <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+            <style>
+              body {
+                margin: 0;
+                background: radial-gradient(circle at center, #000010, #000);
+                color: #0ff;
+                font-family: 'Orbitron', sans-serif;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                overflow: hidden;
+              }
+              
+              .spinner {
+                width: 60px;
+                height: 60px;
+                border: 6px solid rgba(0, 255, 255, 0.1);
+                border-top: 6px solid #0ff;
+                border-radius: 50%;
+                animation: spin 1s linear infinite;
+                margin-bottom: 25px;
+                box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+              }
 
-          @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-          }
+              @keyframes spin {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+              }
 
-          .loading-text {
-            font-size: 1.5em;
-            letter-spacing: 3px;
-            text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
-            animation: pulse 1.5s ease-in-out infinite;
-            user-select: none;
-          }
+              .loading-text {
+                font-size: 1.5em;
+                letter-spacing: 3px;
+                text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+                animation: pulse 1.5s ease-in-out infinite;
+                user-select: none;
+              }
 
-          @keyframes pulse {
-            0%, 100% { opacity: 1; text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
-            50% { opacity: 0.6; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
-          }
-        </style>
-      </head>
-      <body>
-        <div class="spinner"></div>
-        <div class="loading-text">Loading ${name}...</div>
-      </body>
-    </html>
-  `);
+              @keyframes pulse {
+                0%, 100% { opacity: 1; text-shadow: 0 0 10px #0ff, 0 0 20px #0ff; }
+                50% { opacity: 0.6; text-shadow: 0 0 5px #0ff, 0 0 10px #0ff; }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="spinner"></div>
+            <div class="loading-text">Loading ${name}...</div>
+          </body>
+        </html>
+      `);
 
-  const ref = await getLatestCommit(owner, repo, path);
+      const ref = await getLatestCommit(owner, repo, path);
+      let subDir = path ? path.replace(/^\/+/, '').replace(/\/?$/, '/') : '';
 
-  let subDir = path ? path.replace(/^\/+/, '').replace(/\/?$/, '/') : '';
+      let base, index;
+      if (baseProvider === "raw") {
+        base = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${subDir}`;
+        index = `${base}index.html`;
+      } else {
+        base = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${subDir}`;
+        index = `${base}index.html`;
+      }
 
-  let base, index;
-  if (baseProvider === "raw") {
-    base = `https://raw.githubusercontent.com/${owner}/${repo}/${ref}/${subDir}`;
-    index = `${base}index.html`;
-  } else {
-    base = `https://cdn.jsdelivr.net/gh/${owner}/${repo}@${ref}/${subDir}`;
-    index = `${base}index.html`;
-  }
+      const res = await fetch(index);
+      let html = await res.text();
+      
+      html = rewriteLargeAssets(html, owner, repo, ref);
+      html = injectCore(html, base, name);
 
-  const res = await fetch(index);
-  let html = await res.text();
-  
-  html = rewriteLargeAssets(html, owner, repo, ref);
-  html = injectCore(html, base, name);
+      tab.document.open();
+      tab.document.write(html);
+      tab.document.close();
+    }
+  </script>
 
-  tab.document.open();
-  tab.document.write(html);
-  tab.document.close();
-}
-</script>
-
-<div style="pointer-events:none; user-select:none;">
+  <div style="pointer-events:none; user-select:none;">
     <script type="text/javascript" src="https://counter.websiteout.com/js/2/6/0/0"></script>
-</div>
-
+  </div>
 </body>
 </html>
