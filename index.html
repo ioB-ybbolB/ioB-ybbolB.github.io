@@ -684,35 +684,85 @@
         } catch (e) {}
         if (uniqueUrls.length >= 4) break;
       }
-
+    
       if (uniqueUrls.length === 0) {
         uniqueUrls.push(fallback);
       }
-
-      let bgImages = ["linear-gradient(rgba(0,0,0,0.42), rgba(0,0,0,0.42))"];
-      let bgSizes = ["cover"];
-      let bgPositions = ["center"];
-
-      uniqueUrls.forEach(url => bgImages.push(`url('${url}')`));
-
-      if (uniqueUrls.length === 1) {
-        bgSizes.push("100% 100%");
-        bgPositions.push("center");
-      } else if (uniqueUrls.length === 2) {
-        bgSizes.push("50% 100%", "50% 100%");
-        bgPositions.push("left center", "right center");
-      } else if (uniqueUrls.length === 3) {
-        bgSizes.push("50% 100%", "50% 50%", "50% 50%");
-        bgPositions.push("left center", "top right", "bottom right");
-      } else {
-        bgSizes.push("50% 50%", "50% 50%", "50% 50%", "50% 50%");
-        bgPositions.push("top left", "top right", "bottom left", "bottom right");
+    
+      button.style.backgroundImage = '';
+    
+      let previewGrid = button.querySelector('.folder-preview-grid');
+      if (!previewGrid) {
+        previewGrid = document.createElement('div');
+        previewGrid.className = 'folder-preview-grid';
+        button.style.position = 'relative';
+        button.style.zIndex = '0';
+        
+        button.prepend(previewGrid);
       }
-
-      button.style.backgroundImage = bgImages.join(", ");
-      button.style.backgroundSize = bgSizes.join(", ");
-      button.style.backgroundPosition = bgPositions.join(", ");
-      button.style.backgroundRepeat = "no-repeat";
+      
+      previewGrid.innerHTML = '';
+    
+      Object.assign(previewGrid.style, {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        display: 'grid',
+        overflow: 'hidden',
+        zIndex: '-1',
+        pointerEvents: 'none',
+        gridTemplateColumns: '1fr 1fr',
+        gridTemplateRows: '1fr 1fr'
+      });
+    
+      const overlay = document.createElement('div');
+      Object.assign(overlay.style, {
+        position: 'absolute',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        backgroundColor: 'rgba(0, 0, 0, 0.42)',
+        zIndex: '1'
+      });
+      previewGrid.appendChild(overlay);
+    
+      uniqueUrls.forEach((url, index) => {
+        const img = document.createElement('img');
+        img.src = url;
+        Object.assign(img.style, {
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: '0'
+        });
+    
+        if (uniqueUrls.length === 1) {
+          img.style.gridColumn = '1 / span 2';
+          img.style.gridRow = '1 / span 2';
+        } else if (uniqueUrls.length === 2) {
+          img.style.gridRow = '1 / span 2';
+          img.style.gridColumn = index === 0 ? '1' : '2';
+        } else if (uniqueUrls.length === 3) {
+          if (index === 0) {
+            img.style.gridColumn = '1';
+            img.style.gridRow = '1 / span 2';
+          } else if (index === 1) {
+            img.style.gridColumn = '2';
+            img.style.gridRow = '1';
+          } else {
+            img.style.gridColumn = '2';
+            img.style.gridRow = '2';
+          }
+        } else {
+          img.style.gridColumn = (index % 2 === 0) ? '1' : '2';
+          img.style.gridRow = (index < 2) ? '1' : '2';
+        }
+    
+        previewGrid.appendChild(img);
+      });
     }
 
     async function renderNodes(nodes) {
