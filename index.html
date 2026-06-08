@@ -316,7 +316,8 @@
             name: "Slope",
             children: [
               { name: "Slope", owner: "ioB-ybbolB", repo: "Slope" },
-              { name: "Slope 2", owner: "ioB-ybbolB", repo: "Slope-2" },
+              { name: "Slope 2", owner: "BulbasaurChat", repo: "bulbasaurchat.github.io", path: "games/slope2" },
+              { name: "Slope 3", owner: "BulbasaurChat", repo: "bulbasaurchat.github.io", path: "games/slope-3-main/slope-3-main" },
               { name: "Slope Plus", owner: "lonfro", repo: "SlopePlusWeb" },
             ]
           },
@@ -563,12 +564,15 @@
 
     async function resolveGameImage(game) {
       const base = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
-      const targetName = game.path ? game.path : game.repo;
+      const rawTarget = game.path ? game.path : game.repo;
+      const targetName = rawTarget.split('/').pop();
+    
       const candidates = [
         `${base}${targetName}.png`,
         `${base}${targetName}.webp`,
         `${base}${targetName}.jpg`
       ];
+    
       return new Promise(resolve => {
         const img = new Image();
         let i = 0;
