@@ -50,7 +50,7 @@
     }
 
     .search-container {
-      margin-bottom: 15px;
+      margin-bottom: 20px;
     }
 
     #gameSearch {
@@ -915,7 +915,7 @@
         if (isFolder(node)) {
           const icon = document.createElement("div");
           icon.className = "folder-icon";
-          icon.textContent = "📂";
+          icon.textContent = "📁";
           btn.appendChild(icon);
           applyFolderPreview(btn, node);
           btn.onclick = () => enterFolder(node);
