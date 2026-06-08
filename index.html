@@ -50,7 +50,7 @@
     }
 
     .search-container {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
 
     #gameSearch {
@@ -68,6 +68,42 @@
 
     #gameSearch:focus {
       box-shadow: 0 0 15px #00ff00;
+    }
+
+    .sort-container {
+      margin-top: 50px;
+      text-align: left;
+    }
+
+    .sort-container label {
+      font-size: 0.85em;
+      color: #00ff00;
+      text-shadow: 0 0 5px #00ff00;
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #sortSelect {
+      width: 100%;
+      padding: 8px;
+      background: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      font-family: 'Orbitron', sans-serif;
+      border-radius: 5px;
+      outline: none;
+      box-shadow: 0 0 5px #00ff00;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    #sortSelect:focus {
+      box-shadow: 0 0 15px #00ff00;
+    }
+
+    #sortSelect option {
+      background: #111;
+      color: #0ff;
     }
 
     .sidebar button {
@@ -269,7 +305,7 @@
   <div class="scanlines"></div>
 
   <div class="sidebar">
-    <h2>Blobe Games v2.20</h2>
+    <h2>Blobe Games v2.21</h2>
 
     <div class="search-container">
       <input type="text" id="gameSearch" placeholder="SEARCH GAMES..." onkeyup="filterGames()">
@@ -281,6 +317,16 @@
     <button id="moviesBtn">🍿 Movies</button>
     <button onclick="var w=window.open('about:blank');w.document.head.innerHTML='<title>Suggestion Form</title><link rel=\'icon\' href=\'https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/favicon.png\'>';w.document.body.innerHTML='<iframe src=&quot;https://forms.gle/upkU7VuNW5r89uVn7&quot; style=&quot;position:fixed;top:0;left:0;width:100%;height:100%;border:0;&quot;></iframe>';">💡 Suggestions</button>
     <button onclick="window.top.location.replace('https://docs.google.com/document/u/0/');">❌ Delete History</button>
+
+    <div class="sort-container">
+      <label for="sortSelect">Sort By:</label>
+      <select id="sortSelect" onchange="changeSortMode()">
+        <option value="alpha">Alphabetically (Default)</option>
+        <option value="numeric">Numerically</option>
+        <option value="recent">Most Recent</option>
+      </select>
+    </div>
+    
   </div>
 
   <div class="game-container" id="gameContainer"></div>
@@ -604,6 +650,7 @@
     let activeCategoryName = "HTML Games";
     let currentFolder = rootNode.children.find(f => f.name === activeCategoryName) || rootNode;
     let currentPath = [rootNode, currentFolder];
+    let currentSortMode = "alpha";
 
     async function resolveGameImage(game) {
       const base = "https://raw.githubusercontent.com/ioB-ybbolB/ioB-ybbolB.github.io/refs/heads/main/assets/";
@@ -868,7 +915,7 @@
         if (isFolder(node)) {
           const icon = document.createElement("div");
           icon.className = "folder-icon";
-          icon.textContent = "📁";
+          icon.textContent = "📂";
           btn.appendChild(icon);
           applyFolderPreview(btn, node);
           btn.onclick = () => enterFolder(node);
@@ -891,15 +938,35 @@
       updateFooter();
     }
 
+    function changeSortMode() {
+      const select = document.getElementById("sortSelect");
+      currentSortMode = select.value;
+      renderCurrentView();
+    }
+
+    function sortNodes(nodes) {
+      let sortedNodes = [...nodes];
+      if (currentSortMode === "alpha") {
+        sortedNodes.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (currentSortMode === "recent") {
+        sortedNodes.reverse();
+      }
+      return sortedNodes;
+    }
+
     async function renderCurrentView() {
       const query = document.getElementById("gameSearch").value.trim().toLowerCase();
+      let nodesToRender = [];
+
       if (query) {
         const scope = getCurrentSearchScope();
-        const results = collectMatches(scope, query);
-        await renderNodes(results);
+        nodesToRender = collectMatches(scope, query);
       } else {
-        await renderNodes((currentFolder.children || []));
+        nodesToRender = currentFolder.children || [];
       }
+
+      nodesToRender = sortNodes(nodesToRender);
+      await renderNodes(nodesToRender);
     }
 
     function filterGames() {
