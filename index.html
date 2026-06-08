@@ -71,7 +71,7 @@
     }
 
     .sort-container {
-      margin-top: 50px;
+      margin-top: 25px;
       text-align: left;
     }
 
@@ -83,9 +83,26 @@
       margin-bottom: 5px;
     }
 
+    .sort-select-wrap {
+      position: relative;
+      width: 60%;
+    }
+    
+    .sort-select-wrap::after {
+      content: "▼";
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00ff00;
+      font-size: 0.8em;
+      pointer-events: none;
+      text-shadow: 0 0 5px #00ff00;
+    }
+    
     #sortSelect {
       width: 100%;
-      padding: 8px;
+      padding: 8px 32px 8px 8px;
       background: #000;
       border: 2px solid #00ff00;
       color: #00ff00;
@@ -95,6 +112,13 @@
       box-shadow: 0 0 5px #00ff00;
       cursor: pointer;
       box-sizing: border-box;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+    }
+    
+    #sortSelect::-ms-expand {
+      display: none;
     }
 
     #sortSelect:focus {
@@ -320,11 +344,13 @@
 
     <div class="sort-container">
       <label for="sortSelect">Sort By:</label>
-      <select id="sortSelect" onchange="changeSortMode()">
-        <option value="alpha">Alphabetically (Default)</option>
-        <option value="numeric">Numerically</option>
-        <option value="recent">Most Recent</option>
-      </select>
+      <div class="sort-select-wrap">
+        <select id="sortSelect" onchange="changeSortMode()">
+          <option value="alpha">Alphabetically</option>
+          <option value="numeric">Numerically</option>
+          <option value="recent">Most Recent</option>
+        </select>
+      </div>
     </div>
     
   </div>
