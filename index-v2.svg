@@ -93,7 +93,7 @@ window.__packAssets={"index.html":"text/html|PGhlYWQ+CiAgICAgICAgPHN0eWxlPgogICA
 (function(){
   var A = window.__packAssets || {};
   var cache = {};
-  var BASE = "https://cdn.jsdelivr.net/gh/ioB-ybbolB/ioB-ybbolB.github.io/";
+  var BASE = "https://cdn.jsdelivr.net/gh/ioBybbolB/ioBybbolB.github.io/";
   function key(u){
     if (typeof u !== "string" || !u) return null;
     var s = u.split("?")[0].split("#")[0];
@@ -123,7 +123,7 @@ window.__packAssets={"index.html":"text/html|PGhlYWQ+CiAgICAgICAgPHN0eWxlPgogICA
 <script type="text/javascript"><![CDATA[
 
 (function(){
-  var BASE = "https://cdn.jsdelivr.net/gh/ioB-ybbolB/ioB-ybbolB.github.io/";
+  var BASE = "https://cdn.jsdelivr.net/gh/ioBybbolB/ioBybbolB.github.io/";
   if (!BASE && !window.__packBlob) return;
   function abs(u){
     if (typeof u !== "string" || !u) return u;
